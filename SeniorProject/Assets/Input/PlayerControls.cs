@@ -44,6 +44,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grab"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5edab2b-4717-4e1c-ae3e-f51a79810171"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b2c9f26-5fca-4d49-ad03-233a3ce684f6"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +142,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_Jump = m_Main.FindAction("Jump", throwIfNotFound: true);
+        m_Main_Grab = m_Main.FindAction("Grab", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,12 +206,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
     private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_Jump;
+    private readonly InputAction m_Main_Grab;
     public struct MainActions
     {
         private @PlayerControls m_Wrapper;
         public MainActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @Jump => m_Wrapper.m_Main_Jump;
+        public InputAction @Grab => m_Wrapper.m_Main_Grab;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -206,6 +229,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Grab.started += instance.OnGrab;
+            @Grab.performed += instance.OnGrab;
+            @Grab.canceled += instance.OnGrab;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -216,6 +242,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Grab.started -= instance.OnGrab;
+            @Grab.performed -= instance.OnGrab;
+            @Grab.canceled -= instance.OnGrab;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -237,5 +266,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnGrab(InputAction.CallbackContext context);
     }
 }
