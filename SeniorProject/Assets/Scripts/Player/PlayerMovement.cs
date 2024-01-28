@@ -8,11 +8,15 @@ public class PlayerMovement : MonoBehaviour
     PlayerControls playerControls;
 
     [Header("Movement")]
-    public float moveSpeed;
+    public static float moveSpeedBase = 5.57f;
+    float moveSpeed = moveSpeedBase;
 
-    public float groundDrag;
+    public static float groundDragBase = 4f;
+    float groundDrag = groundDragBase;
 
-    public float jumpForce;
+    public static float jumpForceBase = 8.62f;
+    float jumpForce = jumpForceBase;
+
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
@@ -34,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+    PlayerGrab playerGrab;
+
+
     private void Awake() {
         playerControls = new PlayerControls();
     }
@@ -48,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        playerGrab = GetComponent<PlayerGrab>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
@@ -60,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
         MyInput();
         SpeedControl();
+        ThrowJar();
 
         // handle drag
         if (grounded) {
@@ -70,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
 
             rb.drag = 0;
         }
-
 
     }
 
@@ -96,8 +104,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void MovePlayer()
-    {
+    private void MovePlayer() {
+        // FeatherJar movement speed 
+
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
@@ -132,6 +141,23 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void ThrowJar() {
+        if (playerControls.Main.Throw.triggered) {
+            Debug.Log("PlayerMovement - Throw Jar");
+            Jar jar = playerGrab.RemoveJar();
+            jar.Throw();
+        }
+    }
+
+    public void UpdateMoveSpeed(float spd) {
+        moveSpeed += spd;
+        Debug.Log("update player move speed: " + spd + ", " + moveSpeed);
+    }
+
+    public void UpdateJumpForce(float jump) {
+        jumpForce += jump;
     }
 
 

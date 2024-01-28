@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7611991232183083226}
   - component: {fileID: 1085151148019035667}
   - component: {fileID: 3591305288669702193}
-  - component: {fileID: 3351467184850348572}
+  - component: {fileID: 3546577015698448332}
+  - component: {fileID: 7103455916973549482}
   m_Layer: 0
-  m_Name: Jar
+  m_Name: FeatherJar
   m_TagString: jar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e950f583d86d7ca4db2fdec0f9762842, type: 2}
+  - {fileID: 2100000, guid: 86c00bfa86732164cb488308dc8e2d66, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +101,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -108,7 +109,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &3351467184850348572
+--- !u!114 &3546577015698448332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +118,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 5565011585276425384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fed52b3ca8bc4d14e9284dad6f642468, type: 3}
+  m_Script: {fileID: 11500000, guid: eba047f84332dd740a7d85046dd58304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  state: 0
+  speedIncrease: 1.12
+  jumpIncrease: 2.5
+--- !u!54 &7103455916973549482
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5565011585276425384}
+  serializedVersion: 4
+  m_Mass: 14.59
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

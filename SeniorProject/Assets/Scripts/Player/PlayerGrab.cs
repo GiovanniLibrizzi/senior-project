@@ -13,7 +13,8 @@ public class PlayerGrab : MonoBehaviour {
     private float timer;
     private bool timerActive;
 
-    public List<GameObject> jars = new List<GameObject>();
+    public Stack<Jar> jars = new Stack<Jar>();
+    public Dictionary<Jar.JType, int> jarDict = new Dictionary<Jar.JType, int>();
 
 
     private void Awake() {
@@ -29,7 +30,7 @@ public class PlayerGrab : MonoBehaviour {
     }
 
     void Start() {
-            
+        
     }
 
 
@@ -55,6 +56,53 @@ public class PlayerGrab : MonoBehaviour {
             }
         }
 
+        for (int i = 0; i < GetJarCount(); i++) {
+
+        }
+
+    }
+
+    public int GetJarCount() {
+        return jars.Count;
+    }
+    public void AddJar(GameObject obj) {
+        // list
+        Jar jar = obj.GetComponent<Jar>();
+        jars.Push(jar);
+
+        // dict
+        Jar.JType type = jar.GetJType();
+        if (jarDict.ContainsKey(type)) {
+            int amt = jarDict[type];
+            jarDict[type] = amt + 1;
+        } else {
+            jarDict.Add(type, 1);
+        }
+
+        jar.Add();
+        
+    }
+
+    public Jar RemoveJar() {
+        // list
+        Jar jar = jars.Pop();
+        
+        // dict
+        Jar.JType type = jar.GetJType();
+        if (jarDict.ContainsKey(type)) {
+            int amt = jarDict[type];
+            jarDict[type] = amt - 1;
+        }
+        return jar;
+    }
+
+    public int GetJarCount(Jar.JType jarType) {
+        int amt = 0;
+        if (jarDict.ContainsKey(jarType)) {
+            amt = jarDict[jarType];
+        }
+
+        return amt;
     }
 
 }
