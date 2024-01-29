@@ -100,6 +100,8 @@ public class PlayerMovement : MonoBehaviour
 
             Jump();
 
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSfx, this.transform.position);
+
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }

@@ -602,7 +602,7 @@ MonoBehaviour:
   sourceProjectPath: ../fmod/audio-system/audio-system.fspro
   sourceBankPath: ../fmod/audio-system/Build
   sourceBankPathUnformatted: 
-  BankRefreshCooldown: 5
+  BankRefreshCooldown: 1
   ShowBankRefreshWindow: 1
   AutomaticEventLoading: 1
   BankLoadType: 0
@@ -625,6 +625,7 @@ MonoBehaviour:
   - Master
   Banks:
   - SFX
+  - Test
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

@@ -79,6 +79,8 @@ public class PlayerGrab : MonoBehaviour {
             jarDict.Add(type, 1);
         }
 
+        AudioManager.instance.SetMusicJars(GetJarCount());
+
         jar.Add();
         
     }
@@ -93,6 +95,9 @@ public class PlayerGrab : MonoBehaviour {
             int amt = jarDict[type];
             jarDict[type] = amt - 1;
         }
+
+        AudioManager.instance.SetMusicJars(GetJarCount());
+
         return jar;
     }
 
