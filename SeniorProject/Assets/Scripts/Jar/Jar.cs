@@ -17,6 +17,7 @@ public class Jar : MonoBehaviour {
     }
 
     private Vector3 position;
+    protected Vector3 initialVelocity;
     protected Rigidbody rb;
     protected CapsuleCollider cCollider;
     protected PlayerMovement player = null;
@@ -75,7 +76,10 @@ public class Jar : MonoBehaviour {
 
         // Rotation shooting
         orientation = GetComponentInParent<Transform>();
-        rb.velocity = orientation.forward * throwSpeed;
+
+
+        initialVelocity = orientation.forward * throwSpeed;
+        rb.velocity = initialVelocity;
 
 
     }
@@ -97,6 +101,10 @@ public class Jar : MonoBehaviour {
         return state;
     }
 
+    protected virtual void OnShatterCollision(Collision collision) {
+
+    }
+
     private IEnumerator ShatterJar() {
         yield return new WaitForSeconds(1f);
         Destroy(this.gameObject);
@@ -104,9 +112,10 @@ public class Jar : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision) {
         if (state == JState.Thrown) {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+            //if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+                OnShatterCollision(collision);
                 StartCoroutine(ShatterJar());
-            } 
+            //} 
         }
     }
 }

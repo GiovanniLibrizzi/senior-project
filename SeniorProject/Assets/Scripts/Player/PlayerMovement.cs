@@ -149,7 +149,10 @@ public class PlayerMovement : MonoBehaviour
         if (playerControls.Main.Throw.triggered) {
             Debug.Log("PlayerMovement - Throw Jar");
             Jar jar = playerGrab.RemoveJar();
-            jar.Throw();
+            // Check if there are any jars 
+            if (jar != null) {
+                jar.Throw();
+            } 
         }
     }
 

@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 52b7938757dab9d47b5f7bb02f9c7d4a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,9 +183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46fe333375d16894a91416853ee914a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5.57
-  groundDrag: 4
-  jumpForce: 8.62
   jumpCooldown: 0.25
   airMultiplier: 0.16
   walkSpeed: 0
@@ -209,7 +206,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitboxGrab: {fileID: 3481285336639981294}
   hitboxTime: 0.1
-  jars: []
 --- !u!1 &3481285336639981294
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2542218041522140718
 Transform:
   m_ObjectHideFlags: 0
@@ -273,7 +269,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2b1004313b9e72f478cb4a65ba361ddb, type: 2}
+  - {fileID: 2100000, guid: fdf95bbf02d170648adf6cc935b9b925, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

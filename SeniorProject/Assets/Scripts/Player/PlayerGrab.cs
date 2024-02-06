@@ -86,19 +86,22 @@ public class PlayerGrab : MonoBehaviour {
     }
 
     public Jar RemoveJar() {
-        // list
-        Jar jar = jars.Pop();
-        
-        // dict
-        Jar.JType type = jar.GetJType();
-        if (jarDict.ContainsKey(type)) {
-            int amt = jarDict[type];
-            jarDict[type] = amt - 1;
+        if (GetJarCount() > 0) {
+            // list
+            Jar jar = jars.Pop();
+
+            // dict
+            Jar.JType type = jar.GetJType();
+            if (jarDict.ContainsKey(type)) {
+                int amt = jarDict[type];
+                jarDict[type] = amt - 1;
+            }
+
+            AudioManager.instance.SetMusicJars(GetJarCount());
+
+            return jar;
         }
-
-        AudioManager.instance.SetMusicJars(GetJarCount());
-
-        return jar;
+        return null;
     }
 
     public int GetJarCount(Jar.JType jarType) {

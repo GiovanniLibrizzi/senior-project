@@ -40,4 +40,14 @@ public class FeatherJar : Jar {
     public override void Process() {
 
     }
+
+    protected override void OnShatterCollision(Collision collision) {
+        if (collision.gameObject.CompareTag("Movable")) {
+            Debug.Log(collision.gameObject.name);
+            Rigidbody rbOther = collision.gameObject.GetComponent<Rigidbody>();
+
+            rbOther.velocity = initialVelocity/1.4f; 
+            //rbOther.AddForce(initialVelocity.normalized * rb.velocity.magnitude, ForceMode.Impulse);
+        }
+    }
 }
