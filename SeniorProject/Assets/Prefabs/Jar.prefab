@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3351467184850348572}
   m_Layer: 0
   m_Name: Jar
-  m_TagString: jar
+  m_TagString: Jar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,4 +120,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed52b3ca8bc4d14e9284dad6f642468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  state: 0

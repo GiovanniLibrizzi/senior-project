@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: de2c4725178265b498346e0e904639fb, type: 2}
+  - {fileID: 2100000, guid: b8c03399e9f2ed7469fc59ec142a2d40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,10 +95,10 @@ GameObject:
   - component: {fileID: 7611991232183083226}
   - component: {fileID: 1085151148019035667}
   - component: {fileID: 3591305288669702193}
-  - component: {fileID: 3546577015698448332}
   - component: {fileID: 7103455916973549482}
+  - component: {fileID: 1436307573649027892}
   m_Layer: 0
-  m_Name: FeatherJar
+  m_Name: FireJar
   m_TagString: Jar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,21 +193,6 @@ CapsuleCollider:
   m_Height: 13.6
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: -0.000005364418, z: -0.000000059604645}
---- !u!114 &3546577015698448332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5565011585276425384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba047f84332dd740a7d85046dd58304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  speedIncrease: 1.12
-  jumpIncrease: 2.5
 --- !u!54 &7103455916973549482
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -235,3 +220,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1436307573649027892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5565011585276425384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdab8e3aa038b8e48a324454c870f298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0

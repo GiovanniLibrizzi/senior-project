@@ -15,7 +15,7 @@ public class GrabHitbox : MonoBehaviour {
     }
     private void OnTriggerEnter(Collider other) {
         //Debug.Log("touching jar");
-        if (other.gameObject.CompareTag("jar")) {
+        if (other.gameObject.CompareTag("Jar")) {
 
             Jar jar = other.gameObject.GetComponent<Jar>();
             if (jar.GetState() == Jar.JState.Grounded) {

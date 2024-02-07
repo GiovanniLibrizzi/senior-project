@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform orientation;
 
+
     float horizontalInput;
     float verticalInput;
 
@@ -39,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
     PlayerGrab playerGrab;
+
+    [Header("Other")]
+    [SerializeField] GameObject fireTrail;
 
 
     private void Awake() {
@@ -60,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         readyToJump = true;
+
+        FireJar.OnFireJarInteract += StartFireTrail;
     }
 
     private void Update() {
@@ -163,6 +169,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void UpdateJumpForce(float jump) {
         jumpForce += jump;
+    }
+
+    public void StartFireTrail(int amt) {
+        // add functionality for different amounts
+        if (amt == 1) {
+            fireTrail.SetActive(true);
+        } else if (amt == 0) {
+            fireTrail.SetActive(false);
+        }
     }
 
 
