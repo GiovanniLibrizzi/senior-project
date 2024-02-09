@@ -7,7 +7,8 @@ using static UnityEditor.FilePathAttribute;
 public class Jar : MonoBehaviour {
     public enum JType {
         Feather,
-        Fire
+        Fire,
+        Slime
     }
 
     public enum JState {

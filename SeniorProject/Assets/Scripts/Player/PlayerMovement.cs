@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         FireJar.OnFireJarInteract += StartFireTrail;
+        SlimeJar.OnSlimeJarInteract += StartSlimeStick;
     }
 
     private void Update() {
@@ -177,6 +178,14 @@ public class PlayerMovement : MonoBehaviour
             fireTrail.SetActive(true);
         } else if (amt == 0) {
             fireTrail.SetActive(false);
+        }
+    }
+
+    public void StartSlimeStick(int amt) {
+        if (amt == 1) {
+            // stick
+        } else if (amt == 0) {
+            // unstick
         }
     }
 
