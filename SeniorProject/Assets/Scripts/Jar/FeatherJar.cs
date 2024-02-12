@@ -37,17 +37,33 @@ public class FeatherJar : Jar {
 
     }
 
-    public override void Process() {
+    //public override void Process() {
 
-    }
+    //}
 
     protected override void OnShatterCollision(Collision collision) {
-        if (collision.gameObject.CompareTag("Movable")) {
-            Debug.Log(collision.gameObject.name);
-            Rigidbody rbOther = collision.gameObject.GetComponent<Rigidbody>();
-
-            rbOther.velocity = initialVelocity/1.4f; 
-            //rbOther.AddForce(initialVelocity.normalized * rb.velocity.magnitude, ForceMode.Impulse);
+        switch (collision.gameObject.tag) {
+            case "Movable":
+                ApplyKnockback(collision);
+                break;
+            case "Enemy":
+                ApplyKnockback(collision);
+                EnemyMovement enemy = collision.gameObject.GetComponent<EnemyMovement>();
+                enemy.TakeDamage(attack);
+                break;
         }
+
+
+
+        //if (collision.gameObject.CompareTag("Movable")) {
+        //    Rigidbody rbOther = collision.gameObject.GetComponent<Rigidbody>();
+        //    rbOther.velocity = initialVelocity.normalized * 16f; //1.1f; 
+        //    //rbOther.AddForce(initialVelocity.normalized * rb.velocity.magnitude, ForceMode.Impulse);
+        //}
+    }
+
+    private void ApplyKnockback(Collision collision) {
+        Rigidbody rbOther = collision.gameObject.GetComponent<Rigidbody>();
+        rbOther.velocity = initialVelocity.normalized * 16f; //1.1f; 
     }
 }

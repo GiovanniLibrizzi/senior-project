@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -41,8 +42,19 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     PlayerGrab playerGrab;
 
+    bool slimeJar;
+
     [Header("Other")]
     [SerializeField] GameObject fireTrail;
+
+
+    // Health
+    static int maxHp = 5;
+    int hp = maxHp;
+    bool invincibility = false;
+    float invincibilityTime = 1f;
+    public static event Action<int> OnPlayerHit;
+
 
 
     private void Awake() {
@@ -67,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
         FireJar.OnFireJarInteract += StartFireTrail;
         SlimeJar.OnSlimeJarInteract += StartSlimeStick;
+        EnemyMovement.OnEnemyHitsPlayer += TakeDamage;
     }
 
     private void Update() {
@@ -154,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ThrowJar() {
         if (playerControls.Main.Throw.triggered) {
-            Debug.Log("PlayerMovement - Throw Jar");
+            //Debug.Log("PlayerMovement - Throw Jar");
             Jar jar = playerGrab.RemoveJar();
             // Check if there are any jars 
             if (jar != null) {
@@ -165,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void UpdateMoveSpeed(float spd) {
         moveSpeed += spd;
-        Debug.Log("update player move speed: " + spd + ", " + moveSpeed);
+        //Debug.Log("update player move speed: " + spd + ", " + moveSpeed);
     }
 
     public void UpdateJumpForce(float jump) {
@@ -184,10 +197,41 @@ public class PlayerMovement : MonoBehaviour
     public void StartSlimeStick(int amt) {
         if (amt == 1) {
             // stick
+            slimeJar = true;
         } else if (amt == 0) {
             // unstick
+            slimeJar = false;
         }
     }
+    
+
+    public void TakeDamage(int amt) {
+        if (!invincibility) {
+            StartCoroutine(DamageCoroutine(amt));
+        }
+    }
+
+    IEnumerator DamageCoroutine(int amt) {
+        invincibility = true;
+        hp -= amt;
+        OnPlayerHit?.Invoke(hp);
+
+        if (hp <= 0) {
+            // Dies
+            Debug.Log("YOU DIED");
+            Destroy(gameObject);
+        }
+        yield return new WaitForSeconds(invincibilityTime);
+        invincibility = false;
+    }
+
+    private void OnCollisionStay(Collision collision) {
+        if (slimeJar && !grounded) {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y/3, rb.velocity.z);
+        }
+    }
+
+    
 
 
 }

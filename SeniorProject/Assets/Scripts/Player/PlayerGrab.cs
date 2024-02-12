@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMOD;
 using System;
+using Unity.VisualScripting;
 
 
 public class PlayerGrab : MonoBehaviour {
@@ -17,16 +18,27 @@ public class PlayerGrab : MonoBehaviour {
     public Dictionary<Jar.JType, int> jarDict = new Dictionary<Jar.JType, int>();
 
 
-    private void Awake() {
-        playerControls = new PlayerControls();
-    }
-
     private void OnEnable() {
         playerControls.Enable();
     }
 
     private void OnDisable() {
         playerControls.Disable();
+    }
+
+
+
+    public static PlayerGrab instance { get; private set; }
+    private void Awake() {
+        playerControls = new PlayerControls();
+
+        // If there is an instance, and it's not me, delete myself.
+
+        if (instance != null && instance != this) {
+            Destroy(this);
+        } else {
+            instance = this;
+        }
     }
 
     void Start() {

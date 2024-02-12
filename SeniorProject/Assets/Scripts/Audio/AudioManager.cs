@@ -13,6 +13,14 @@ public class AudioManager : MonoBehaviour {
 
     private EventInstance musicEventInstance;
 
+    // Enemy state
+    public enum DangerState {
+        Chill,
+        Wary,
+        Danger
+    }
+    private DangerState dangerState = DangerState.Chill;
+    private int[] enemyStates = new int[3];
 
     public static AudioManager instance { get; private set; }
 
@@ -39,6 +47,37 @@ public class AudioManager : MonoBehaviour {
 
     public void SetMusicJars(int jarsAmt) {
         musicEventInstance.setParameterByName("Jars", (int)jarsAmt);
+    }
+
+    public void SetEnemyState(EnemyMovement.EnemyState state, EnemyMovement.EnemyState previousState = EnemyMovement.EnemyState.Hurt) {
+        if (state != EnemyMovement.EnemyState.Hurt && previousState != EnemyMovement.EnemyState.Hurt) {
+            enemyStates[(int)state]++;
+            enemyStates[(int)previousState]--;
+        }
+
+        if (enemyStates[(int)EnemyMovement.EnemyState.Roam] == 0 && enemyStates[(int)EnemyMovement.EnemyState.Attacking] == 0) {
+            dangerState = DangerState.Chill;
+        } else if (enemyStates[(int)EnemyMovement.EnemyState.Roam] > 0 && enemyStates[(int)EnemyMovement.EnemyState.Attacking] == 0) {
+            dangerState = DangerState.Wary;
+        } else if (enemyStates[(int)EnemyMovement.EnemyState.Attacking] > 0) {
+            dangerState = DangerState.Danger;
+        }
+
+        Debug.Log("AUDIO: DangerState " + dangerState.ToString());
+        musicEventInstance.setParameterByName("DangerState", (int)dangerState);
+
+        //switch (state) {
+        //    case EnemyMovement.EnemyState.Idle:
+        //        break;
+        //    case EnemyMovement.EnemyState.Roam:
+        //        break;
+        //    case EnemyMovement.EnemyState.Attacking:
+        //        break;
+        //}
+    }
+
+    public void DeleteEnemyState(EnemyMovement.EnemyState state) {
+        enemyStates[(int)state]--;
     }
 
 

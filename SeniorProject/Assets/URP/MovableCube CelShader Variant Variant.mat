@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CelShader Variant
+  m_Name: MovableCube CelShader Variant Variant
   m_Shader: {fileID: -6465566751694194690, guid: 6d8e2934988b42c48a0ceefb13c5d165, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: 6d8e2934988b42c48a0ceefb13c5d165, type: 3}
+  m_Parent: {fileID: 2100000, guid: 433834326eb084e4ea9f408d7b262757, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -24,11 +24,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _QueueControl: 0
     m_Colors:
-    - _Color: {r: 0.5660378, g: 0.2322891, b: 0.2322891, a: 1}
+    - _Color: {r: 0.41936374, g: 0.36908153, b: 0.5471698, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1732697750298760281
+--- !u!114 &6810762061116627157
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

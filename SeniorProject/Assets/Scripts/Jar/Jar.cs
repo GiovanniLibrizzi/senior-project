@@ -7,7 +7,7 @@ using static UnityEditor.FilePathAttribute;
 public class Jar : MonoBehaviour {
     public enum JType {
         Feather,
-        Fire,
+        Fire, 
         Slime
     }
 
@@ -27,7 +27,7 @@ public class Jar : MonoBehaviour {
 
     protected JType type;
 
-
+    protected int attack = 1;
     private float throwSpeed = 15f;
 
     void Start() {

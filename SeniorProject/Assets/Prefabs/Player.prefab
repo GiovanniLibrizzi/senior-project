@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 7417801530410294749}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,6 +193,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   orientation: {fileID: 1034492032930120950}
+  fireTrail: {fileID: 4922374155232609080}
 --- !u!114 &7417801530410294749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1385071087136974798
 Transform:
   m_ObjectHideFlags: 0

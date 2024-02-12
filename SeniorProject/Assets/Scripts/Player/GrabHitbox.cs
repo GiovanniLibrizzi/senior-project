@@ -14,7 +14,6 @@ public class GrabHitbox : MonoBehaviour {
         
     }
     private void OnTriggerEnter(Collider other) {
-        //Debug.Log("touching jar");
         if (other.gameObject.CompareTag("Jar")) {
 
             Jar jar = other.gameObject.GetComponent<Jar>();
@@ -24,7 +23,6 @@ public class GrabHitbox : MonoBehaviour {
                 // Reposition jar
                 Vector3 jarPos = new Vector3(transform.position.x, transform.position.y + 0.3f * player.GetJarCount(), transform.position.z);
                 other.gameObject.transform.position = jarPos;
-                Debug.Log(jarPos);
                 jar.SetPosition(jarPos);
                 player.AddJar(other.gameObject);
             }
