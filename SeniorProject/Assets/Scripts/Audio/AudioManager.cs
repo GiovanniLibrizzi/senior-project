@@ -55,29 +55,31 @@ public class AudioManager : MonoBehaviour {
             enemyStates[(int)previousState]--;
         }
 
+        UpdateDangerState();
+    }
+
+    public void UpdateDangerState() {
         if (enemyStates[(int)EnemyMovement.EnemyState.Roam] == 0 && enemyStates[(int)EnemyMovement.EnemyState.Attacking] == 0) {
             dangerState = DangerState.Chill;
         } else if (enemyStates[(int)EnemyMovement.EnemyState.Roam] > 0 && enemyStates[(int)EnemyMovement.EnemyState.Attacking] == 0) {
             dangerState = DangerState.Wary;
         } else if (enemyStates[(int)EnemyMovement.EnemyState.Attacking] > 0) {
+            Debug.Log(enemyStates[(int)EnemyMovement.EnemyState.Attacking]);
             dangerState = DangerState.Danger;
+        } else {
+            dangerState = DangerState.Chill;
         }
 
         Debug.Log("AUDIO: DangerState " + dangerState.ToString());
+
         musicEventInstance.setParameterByName("DangerState", (int)dangerState);
 
-        //switch (state) {
-        //    case EnemyMovement.EnemyState.Idle:
-        //        break;
-        //    case EnemyMovement.EnemyState.Roam:
-        //        break;
-        //    case EnemyMovement.EnemyState.Attacking:
-        //        break;
-        //}
     }
 
     public void DeleteEnemyState(EnemyMovement.EnemyState state) {
         enemyStates[(int)state]--;
+        UpdateDangerState();
+        //Debug.Log("dangerstates: " + enemyStates[0] + enemyStates[1] + enemyStates[2]);
     }
 
 

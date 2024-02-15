@@ -139,21 +139,15 @@ public class EnemyMovement : MonoBehaviour {
         TransitionHit();
         Debug.Log("Enemy damage! Health: " + hp);
         if (hp <= 0) {
+            DestroyAudioState();
             Destroy(gameObject);
         }
     }
 
 
-    private void OnDestroy() {
-        // Update audio manager state tracker
-        Debug.Log("Enemy Death: " + state.ToString());
-        EnemyState dState;
-        if (state == EnemyState.Hurt) {
-            dState = prevState;
-        } else {
-            dState = state;
-        }
-        AudioManager.instance.DeleteEnemyState(dState);
+    private void DestroyAudioState() {
+   
+        AudioManager.instance.DeleteEnemyState(EnemyState.Attacking);
     }
 
 }
