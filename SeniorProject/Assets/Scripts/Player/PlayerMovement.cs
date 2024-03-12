@@ -9,14 +9,14 @@ public class PlayerMovement : MonoBehaviour
     PlayerControls playerControls;
 
     [Header("Movement")]
-    public static float moveSpeedBase = 5.57f;
-    float moveSpeed = moveSpeedBase;
+    public float moveSpeedBase = 5.57f;
+    float moveSpeed;
 
-    public static float groundDragBase = 4f;
-    float groundDrag = groundDragBase;
+    public float groundDragBase = 4f;
+    float groundDrag;
 
-    public static float jumpForceBase = 8.62f;
-    float jumpForce = jumpForceBase;
+    public float jumpForceBase = 8.62f;
+    float jumpForce;
 
     public float jumpCooldown;
     public float airMultiplier;
@@ -49,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     // Health
-    static int maxHp = 5;
-    int hp = maxHp;
+    public int maxHp = 5;
+    int hp;
     bool invincibility = false;
     float invincibilityTime = 1f;
     public static event Action<int> OnPlayerHit;
@@ -59,6 +59,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() {
         playerControls = new PlayerControls();
+
+        moveSpeed = moveSpeedBase;
+        groundDrag = groundDragBase;
+        jumpForce = jumpForceBase;
+        hp = maxHp;
     }
 
     private void OnEnable() {
@@ -228,6 +233,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionStay(Collision collision) {
         if (slimeJar && !grounded) {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y/3, rb.velocity.z);
+        }
+        if (collision.gameObject.CompareTag("Ladder")) {
+            Vector2 inputMove = playerControls.Main.Move.ReadValue<Vector2>();
+            horizontalInput = inputMove.x;
+            verticalInput = inputMove.y;
+            if (verticalInput > 0) {
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 0.7f, rb.velocity.z);
+            }
         }
     }
 

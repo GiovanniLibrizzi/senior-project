@@ -790,6 +790,12 @@
 		<property name="value">
 			<value>-80</value>
 		</property>
+		<property name="curveShape">
+			<value>0.5</value>
+		</property>
+		<property name="isSCurve">
+			<value>true</value>
+		</property>
 	</object>
 	<object class="AutomationPoint" id="{12419a5c-f810-4da7-bed4-bf35303b165d}">
 		<property name="position">
@@ -829,6 +835,12 @@
 		</property>
 		<property name="value">
 			<value>-80</value>
+		</property>
+		<property name="curveShape">
+			<value>0.5</value>
+		</property>
+		<property name="isSCurve">
+			<value>true</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{7fbb4de7-4114-49ec-85db-d1d53d5b1b48}">

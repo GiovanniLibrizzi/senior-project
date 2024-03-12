@@ -8,6 +8,8 @@ public class JarSpawner : MonoBehaviour {
     [SerializeField] GameObject jarPrefab;
     [SerializeField] GameObject jarGroup = null;
     [SerializeField] float spawnTime = 8;
+    [SerializeField] int jarHeldAmt;
+    [SerializeField] float distanceRadius = 10;
     //[SerializeField] GameObject colliderCheck = null;
 
     Jar newJar = null;
@@ -24,11 +26,16 @@ public class JarSpawner : MonoBehaviour {
     }
 
     void Update() {
-        if (canSpawnJar && playerJars.GetJarCount(type) == 0) {
+        if (canSpawnJar && playerJars.GetJarCount(type) <= jarHeldAmt && PlayerInRadius()) {
             if (newJar == null || newJar.state == Jar.JState.Thrown) { 
                 StartCoroutine(SpawnJar());
             }
         }
+    }
+
+    private bool PlayerInRadius() {
+        Vector3 pDistance = playerJars.gameObject.transform.position;
+        return Vector3.Distance(transform.position, pDistance) < distanceRadius;
     }
 
     IEnumerator SpawnJar() {
