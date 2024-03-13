@@ -157,6 +157,18 @@ public class AudioManager : MonoBehaviour {
         //Debug.Log("dangerstates: " + enemyStates[0] + enemyStates[1] + enemyStates[2]);
     }
 
+    public void UpdateParameter(AudioTrigger.Parameter param, int value) {
+        string paramName = "";
+        switch (param) {
+            case AudioTrigger.Parameter.FullLoop: {
+                paramName = "TriggerFullLoop";
+            }
+            break;
+        }
+
+        musicEventInstance.setParameterByName(paramName, value);
+    }
+
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos) {
         RuntimeManager.PlayOneShot(sound, worldPos);
