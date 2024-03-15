@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour {
     EnemyState state = 0;
     EnemyState prevState = 0;
     Rigidbody rb;
-    float mspd = 3f;
+    [SerializeField] float mspd = 3f;
     Vector3 roamVelocity = Vector3.zero;
     //bool hurtHitWall = false;
 

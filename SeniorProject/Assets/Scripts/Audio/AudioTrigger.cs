@@ -11,6 +11,9 @@ public class AudioTrigger : MonoBehaviour {
     }
     [SerializeField] Parameter parameter;
 
+    private void Awake() {
+        GetComponent<Renderer>().enabled = false;
+    }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player")) {

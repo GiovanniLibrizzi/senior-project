@@ -290,6 +290,7 @@
 			<destination>{721f5c36-bb40-4570-99ef-02874ad31622}</destination>
 			<destination>{6ba88e8c-98cc-458b-b969-d42f899dc2a0}</destination>
 			<destination>{a450e286-62d6-43e5-8f8b-a8652067e96d}</destination>
+			<destination>{b87f3eda-ffbe-4b0a-b67a-a6e949262533}</destination>
 		</relationship>
 	</object>
 	<object class="ParameterProxy" id="{7aca3f39-dbfc-45cb-8b71-ade691c66d2e}">
@@ -1044,7 +1045,7 @@
 			<value>0</value>
 		</property>
 		<property name="tempo">
-			<value>72</value>
+			<value>144</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{897795b1-3d83-4204-a05f-2d5a03a8c01c}</destination>
@@ -1122,6 +1123,20 @@
 		</relationship>
 		<relationship name="markerTrack">
 			<destination>{f76cc730-bf74-4963-9e7c-f420ca562f81}</destination>
+		</relationship>
+	</object>
+	<object class="NamedMarker" id="{b87f3eda-ffbe-4b0a-b67a-a6e949262533}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="name">
+			<value>Start Intro Loop</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{897795b1-3d83-4204-a05f-2d5a03a8c01c}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{bca27b61-871d-4c0a-b653-e2b674aeb69c}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{984d3fa7-d5d0-442d-a546-a585b9ebbdd0}">

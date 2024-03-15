@@ -29,6 +29,7 @@ public class Jar : MonoBehaviour {
 
     protected int attack = 1;
     private float throwSpeed = 15f;
+    protected bool shattered = false;
 
     void Start() {
         state = JState.Grounded;
@@ -82,6 +83,7 @@ public class Jar : MonoBehaviour {
         initialVelocity = orientation.forward * throwSpeed;
         rb.velocity = initialVelocity;
 
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.jarThrowSfx, transform.position);
 
     }
 
@@ -107,16 +109,27 @@ public class Jar : MonoBehaviour {
     }
 
     private IEnumerator ShatterJar() {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision) {
         if (state == JState.Thrown) {
             //if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-                OnShatterCollision(collision);
-                StartCoroutine(ShatterJar());
-            //} 
+            StartCoroutine(ShatterJar());
+            OnShatterCollision(collision);
+            
+            if (!shattered) {
+                switch (type) {
+                    case JType.Feather:
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.featherShatterSfx, transform.position);
+                        break;
+                    default:
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.shatterSfx, transform.position);
+                        break;
+                }
+            }
+            shattered = true;
         }
     }
 }

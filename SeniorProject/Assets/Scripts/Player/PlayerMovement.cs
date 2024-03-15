@@ -87,7 +87,13 @@ public class PlayerMovement : MonoBehaviour
         FireJar.OnFireJarInteract += StartFireTrail;
         SlimeJar.OnSlimeJarInteract += StartSlimeStick;
         EnemyMovement.OnEnemyHitsPlayer += TakeDamage;
+        AudioManager.BeatUpdated += PlayFootstepSfx;
     }
+    private void OnDestroy() {
+        AudioManager.BeatUpdated -= PlayFootstepSfx;
+    }
+
+
 
     private void Update() {
         // ground check
@@ -101,15 +107,15 @@ public class PlayerMovement : MonoBehaviour
         if (grounded) {
             //Debug.Log("grounded");
             rb.drag = groundDrag;
-            if (rb.velocity.magnitude> 0) {
-                if (Time.time - timeSinceLastFootstep >= 0.5f) {
-                    //AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
-                    //audioSource.PlayOneShot(footstepSound);
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.stepSfx, this.transform.position);
-                    //Debug.Log("h");
-                    timeSinceLastFootstep = Time.time; // Update the time since the last footstep sound
-                }
-            }
+            //if (rb.velocity.magnitude> 0) {
+            //    if (Time.time - timeSinceLastFootstep >= 0.5f) {
+            //        //AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
+            //        //audioSource.PlayOneShot(footstepSound);
+            //        AudioManager.instance.PlayOneShot(FMODEvents.instance.stepSfx, this.transform.position);
+            //        //Debug.Log("h");
+            //        timeSinceLastFootstep = Time.time; // Update the time since the last footstep sound
+            //    }
+            //}
         } else {
             //Debug.Log("not grounded");
 
@@ -117,7 +123,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
+    private void PlayFootstepSfx(int beat) {
+        if (grounded && rb.velocity.magnitude > 0) {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.stepSfx, this.transform.position);
+        }
+    }
     private void FixedUpdate()
     {
         MovePlayer();

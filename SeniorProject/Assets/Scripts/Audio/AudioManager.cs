@@ -36,8 +36,10 @@ public class AudioManager : MonoBehaviour {
     public static int lastBeat = 0;
     public static string lastMarkerString = null;
 
-    public delegate void BeatEventDelegate();
-    public static event BeatEventDelegate beatUpdated;
+    public static event Action<int> BeatUpdated;
+
+    //public delegate void BeatEventDelegate();
+    //public static event BeatEventDelegate beatUpdated;
 
     public delegate void MarkerListenerDelegate();
     public static event MarkerListenerDelegate markerUpdated;
@@ -48,19 +50,24 @@ public class AudioManager : MonoBehaviour {
         public int currentBeat = 0;
         public FMOD.StringWrapper lastMarker = new FMOD.StringWrapper();
     }
+    bool timelineCheck = false;
 
 
     void Awake() {
+        DontDestroyOnLoad(this);
         if (instance != null) {
-            Debug.LogError("More than one AudioManager created");
+            //Debug.LogError("More than one AudioManager created");
+            Destroy(this);
+        } else {
+            instance = this;
+            DontDestroyOnLoad(this);
         }
-        instance = this;
-
-
+        timelineCheck = true;
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
 
         InitializeMusic(FMODEvents.instance.musicTest);
+        //DontDestroyOnLoad(GameObject.Find("FMOD_StudioSystem"));
 
     }
 
@@ -85,9 +92,10 @@ public class AudioManager : MonoBehaviour {
 
         if (lastBeat != timelineInfo.currentBeat) {
             lastBeat = timelineInfo.currentBeat;
-            if (beatUpdated != null) {
-                beatUpdated();
-            }
+            //if (beatUpdated != null) {
+            //    beatUpdated();
+            //}
+            BeatUpdated?.Invoke(timelineInfo.currentBeat);
         }
     }
 
@@ -234,7 +242,8 @@ public class AudioManager : MonoBehaviour {
             e.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             e.release();
         }
-
-        timelineHandle.Free();
+        if (!timelineCheck) {
+            timelineHandle.Free();
+        }
     }
 }
