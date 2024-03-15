@@ -5,8 +5,10 @@ using FMODUnity;
 
 public class FMODEvents : MonoBehaviour {
 
-    [field: Header("Jump SFX")]
+    [field: Header("SFX")]
     [field: SerializeField] public EventReference jumpSfx { get; private set; }
+    [field: SerializeField] public EventReference stepSfx { get; private set; }
+
 
 
     [field: Header("Music")]

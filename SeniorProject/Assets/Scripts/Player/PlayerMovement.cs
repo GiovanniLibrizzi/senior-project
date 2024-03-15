@@ -55,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
     float invincibilityTime = 1f;
     public static event Action<int> OnPlayerHit;
 
+    float timeSinceLastFootstep;
+
 
 
     private void Awake() {
@@ -99,6 +101,15 @@ public class PlayerMovement : MonoBehaviour
         if (grounded) {
             //Debug.Log("grounded");
             rb.drag = groundDrag;
+            if (rb.velocity.magnitude> 0) {
+                if (Time.time - timeSinceLastFootstep >= 0.5f) {
+                    //AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
+                    //audioSource.PlayOneShot(footstepSound);
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.stepSfx, this.transform.position);
+                    //Debug.Log("h");
+                    timeSinceLastFootstep = Time.time; // Update the time since the last footstep sound
+                }
+            }
         } else {
             //Debug.Log("not grounded");
 
@@ -229,6 +240,8 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(invincibilityTime);
         invincibility = false;
     }
+
+
 
     private void OnCollisionStay(Collision collision) {
         if (slimeJar && !grounded) {
