@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100183849607273954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1156460431647578230}
+  - component: {fileID: 4016814358715163128}
+  m_Layer: 0
+  m_Name: FMODEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1156460431647578230
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100183849607273954}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3368596149799659969}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4016814358715163128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100183849607273954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf7e83e1b9bce24ea884e30cf98635b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <jumpSfx>k__BackingField:
+    Guid:
+      Data1: 1757617212
+      Data2: 1131419779
+      Data3: -1923238510
+      Data4: -46074266
+    Path: event:/SFX/JumpSFX
+  <stepSfx>k__BackingField:
+    Guid:
+      Data1: 1769670919
+      Data2: 1186156381
+      Data3: -164824951
+      Data4: 1176524282
+    Path: event:/SFX/StepSFX
+  <shatterSfx>k__BackingField:
+    Guid:
+      Data1: 1655797514
+      Data2: 1205658171
+      Data3: 484039826
+      Data4: -152550118
+    Path: event:/SFX/ShatterSFX
+  <featherShatterSfx>k__BackingField:
+    Guid:
+      Data1: -22405826
+      Data2: 1274404718
+      Data3: 1239403415
+      Data4: 861346826
+    Path: event:/SFX/FeatherShatterSFX
+  <jarPickupSfx>k__BackingField:
+    Guid:
+      Data1: 351142546
+      Data2: 1260949040
+      Data3: 1532149695
+      Data4: -1318794149
+    Path: event:/SFX/JarPickupSFX
+  <jarThrowSfx>k__BackingField:
+    Guid:
+      Data1: 1475340031
+      Data2: 1200951325
+      Data3: -111232843
+      Data4: -1199312064
+    Path: event:/SFX/JarThrowSFX
+  <jarRespawnSfx>k__BackingField:
+    Guid:
+      Data1: -762637300
+      Data2: 1173870016
+      Data3: -1114951
+      Data4: -2013092287
+    Path: event:/SFX/JarRespawnSFX
+  <musicTest>k__BackingField:
+    Guid:
+      Data1: -785795783
+      Data2: 1211489827
+      Data3: -1842700379
+      Data4: -1373564737
+    Path: event:/Music/MusicLevel2
+--- !u!1 &4030701362840740608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3368596149799659969}
+  - component: {fileID: 920317027263802318}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3368596149799659969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4030701362840740608}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1156460431647578230}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &920317027263802318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4030701362840740608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e2fd808c039254bb3d5078322bfd50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPos: {fileID: 0}

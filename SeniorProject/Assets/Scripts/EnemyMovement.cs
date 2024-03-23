@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour {
     EnemyState state = 0;
     EnemyState prevState = 0;
     Rigidbody rb;
-    float mspd = 3f;
+    [SerializeField] float mspd = 3f;
     Vector3 roamVelocity = Vector3.zero;
     //bool hurtHitWall = false;
 
@@ -28,6 +28,8 @@ public class EnemyMovement : MonoBehaviour {
 
     [SerializeField] GameObject player;
     [SerializeField] int attack;
+    [SerializeField] int roamRange = 15;
+    [SerializeField] int attackRange = 15;
 
     public static event Action<int> OnEnemyHitsPlayer;
 
@@ -46,7 +48,7 @@ public class EnemyMovement : MonoBehaviour {
             case EnemyState.Idle:
 
                 // Transition
-                if (distanceToPlayer < 25) {
+                if (distanceToPlayer < roamRange) {
                     TransitionRoam();
                 }
                 break;
@@ -54,9 +56,14 @@ public class EnemyMovement : MonoBehaviour {
                 rb.velocity = transform.forward * mspd;//roamVelocity;
 
                 // Transition
-                if (distanceToPlayer < 12) {
+                if (distanceToPlayer < attackRange) {
                     SetState(EnemyState.Attacking);
                 }
+
+                if (distanceToPlayer > roamRange) {
+                    SetState(EnemyState.Idle);
+                }
+                
                 break;
 
             case EnemyState.Attacking:
@@ -64,7 +71,7 @@ public class EnemyMovement : MonoBehaviour {
                 rb.velocity = transform.forward * mspd * 1.25f;
 
                 // Transition
-                if (distanceToPlayer > 25) {
+                if (distanceToPlayer > roamRange) {
                     TransitionRoam();
                 }
                 break;

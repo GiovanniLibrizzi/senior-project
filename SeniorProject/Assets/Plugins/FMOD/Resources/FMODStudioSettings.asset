@@ -625,6 +625,7 @@ MonoBehaviour:
   - Master
   Banks:
   - MusicLevel1
+  - MusicLevel2
   - SFX
   - Test
   BanksToLoad: []

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{86e6b2dc-5f47-48f1-a2dc-8b337ba6524e}">
+		<property name="name">
+			<value>TriggerFullLoop</value>
+		</property>
+		<relationship name="folder">
+			<destination>{cad1fb91-afac-42fa-94ba-ca47379cb996}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{2098cfa3-3a3a-4dc6-b8c3-26dc37092f33}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{2098cfa3-3a3a-4dc6-b8c3-26dc37092f33}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

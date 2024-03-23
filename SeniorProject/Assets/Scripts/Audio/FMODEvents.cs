@@ -5,9 +5,14 @@ using FMODUnity;
 
 public class FMODEvents : MonoBehaviour {
 
-    [field: Header("Jump SFX")]
+    [field: Header("SFX")]
     [field: SerializeField] public EventReference jumpSfx { get; private set; }
-
+    [field: SerializeField] public EventReference stepSfx { get; private set; }
+    [field: SerializeField] public EventReference shatterSfx { get; private set; }
+    [field: SerializeField] public EventReference featherShatterSfx { get; private set; }
+    [field: SerializeField] public EventReference jarPickupSfx { get; private set; }
+    [field: SerializeField] public EventReference jarThrowSfx { get; private set; }
+    [field: SerializeField] public EventReference jarRespawnSfx { get; private set; }
 
     [field: Header("Music")]
     [field: SerializeField] public EventReference musicTest { get; private set; }
@@ -17,7 +22,8 @@ public class FMODEvents : MonoBehaviour {
 
     void Awake() {
         if (instance != null) {
-            Debug.LogError("More than one FMODEvents created");
+            //Debug.LogError("More than one FMODEvents created");
+            Destroy(this);
         }
         instance = this;
     }

@@ -92,6 +92,7 @@ public class PlayerGrab : MonoBehaviour {
         }
 
         AudioManager.instance.SetMusicJars(GetJarCount());
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.jarPickupSfx, transform.position);
 
         jar.Add();
         
