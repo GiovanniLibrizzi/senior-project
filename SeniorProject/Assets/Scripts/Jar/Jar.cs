@@ -8,7 +8,8 @@ public class Jar : MonoBehaviour {
     public enum JType {
         Feather,
         Fire, 
-        Slime
+        Slime,
+        Key
     }
 
     public enum JState {

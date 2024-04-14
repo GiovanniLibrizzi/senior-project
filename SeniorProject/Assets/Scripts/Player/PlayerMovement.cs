@@ -58,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
     float timeSinceLastFootstep;
 
 
+    // Animations
+    [SerializeField] Animator animator;
+
+
 
     private void Awake() {
         playerControls = new PlayerControls();
@@ -66,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
         groundDrag = groundDragBase;
         jumpForce = jumpForceBase;
         hp = maxHp;
+        animator = GetComponentInChildren<Animator>();
+        Debug.Log("Animator : " + animator);
     }
 
     private void OnEnable() {
@@ -145,10 +151,13 @@ public class PlayerMovement : MonoBehaviour
             readyToJump = false;
 
             Jump();
+            animator.SetBool("isJumping", true);
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSfx, this.transform.position);
 
             Invoke(nameof(ResetJump), jumpCooldown);
+        } else {
+            animator.SetBool("isJumping", false);
         }
     }
 
@@ -158,13 +167,19 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
+        if (moveDirection.magnitude > 0.01f) {
+            animator.SetBool("isWalking", true);
+        } else {
+            animator.SetBool("isWalking", false);
+        }
         // on ground
-        if(grounded)
+        if (grounded) {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
-        // in air
-        else if(!grounded)
+            
+        } else if (!grounded) {
+            // in air
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
     }
 
     private void SpeedControl()

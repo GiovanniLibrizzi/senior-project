@@ -78,6 +78,7 @@ public class PlayerGrab : MonoBehaviour {
         return jars.Count;
     }
     public void AddJar(GameObject obj) {
+
         // list
         Jar jar = obj.GetComponent<Jar>();
         jars.Push(jar);

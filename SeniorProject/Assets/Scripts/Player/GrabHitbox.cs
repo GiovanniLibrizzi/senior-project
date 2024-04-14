@@ -17,6 +17,11 @@ public class GrabHitbox : MonoBehaviour {
         if (other.gameObject.CompareTag("Jar")) {
 
             Jar jar = other.gameObject.GetComponent<Jar>();
+            // only add jar if the player isn't holding a key
+            if (player.GetJarCount(Jar.JType.Key) > 0) {
+                return;
+            }
+
             if (jar.GetState() == Jar.JState.Grounded) {
                 // Set parent to the player object so it sticks to them            
                 other.gameObject.transform.parent = playerObj.transform;
