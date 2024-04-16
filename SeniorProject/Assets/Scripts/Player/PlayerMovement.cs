@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     // Animations
-    [SerializeField] Animator animator;
+    private Animator animator;
 
 
 
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         jumpForce = jumpForceBase;
         hp = maxHp;
         animator = GetComponentInChildren<Animator>();
-        Debug.Log("Animator : " + animator);
+        //Debug.Log("Animator : " + animator);
     }
 
     private void OnEnable() {
