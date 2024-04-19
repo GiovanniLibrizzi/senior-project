@@ -40,7 +40,7 @@ public class JarSpawner : MonoBehaviour {
 
     IEnumerator SpawnJar() {
         canSpawnJar = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
         newJar = Instantiate(jarPrefab, jarGroup.transform).GetComponent<Jar>();
         newJar.transform.position = transform.position;
