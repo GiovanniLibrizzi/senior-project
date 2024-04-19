@@ -84,6 +84,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+
         playerGrab = GetComponent<PlayerGrab>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;

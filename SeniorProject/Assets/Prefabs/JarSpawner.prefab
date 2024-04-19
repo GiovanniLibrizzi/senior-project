@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7667215914750228489}
   m_Layer: 0
   m_Name: JarSpawner
-  m_TagString: EditorOnly
+  m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2414618522950383459}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -100,3 +100,5 @@ MonoBehaviour:
   jarPrefab: {fileID: 5565011585276425384, guid: 20ebab5c5b90cc54c8c9e4fc6dbe10b9, type: 3}
   jarGroup: {fileID: 0}
   spawnTime: 8
+  jarHeldAmt: 0
+  distanceRadius: 10

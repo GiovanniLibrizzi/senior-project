@@ -66,12 +66,13 @@ public class AudioManager : MonoBehaviour {
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
 
-        InitializeMusic(FMODEvents.instance.musicTest);
+        //InitializeMusic(FMODEvents.instance.musicTest);
         //DontDestroyOnLoad(GameObject.Find("FMOD_StudioSystem"));
 
     }
 
     private void Start() {
+        InitializeMusic(FMODEvents.instance.musicTest);
         if (instance != null) {
             timelineInfo = new TimelineInfo();
             beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
@@ -79,6 +80,7 @@ public class AudioManager : MonoBehaviour {
             eventInstances[0].setUserData(GCHandle.ToIntPtr(timelineHandle));
             eventInstances[0].setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         }
+        
     }
 
     private void Update() {

@@ -359,7 +359,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8969133}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.26585498, y: 0.000000016587181, z: -0.000000004574403, w: 0.96401304}
+  m_LocalRotation: {x: 0.2658545, y: -0.00000001658718, z: 0.0000000045743938, w: 0.9640132}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11845,8 +11845,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1695696, y: 0.000000036136303, z: -0.0000000062176606, w: 0.9855183}
-  m_LocalPosition: {x: 29.75, y: 6.3396955, z: 21.980896}
+  m_LocalRotation: {x: 0.16956909, y: 0.000000033914407, z: -0.00000000583534, w: 0.98551834}
+  m_LocalPosition: {x: 29.75, y: 6.339696, z: 21.980892}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24086,7 +24086,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800122451}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16956958, y: 0.000000021052134, z: -0.0000000036222583, w: 0.9855182}
+  m_LocalRotation: {x: 0.16956906, y: 0.000000016957204, z: -0.0000000029176699, w: 0.98551834}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -24991,7 +24991,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1846876851}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.008757018, y: -9.312868e-10, z: -8.155607e-12, w: 0.9999617}
+  m_LocalRotation: {x: -0.008756697, y: 0.0000000010753578, z: 9.416944e-12, w: 0.9999617}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -26796,6 +26796,26 @@ PrefabInstance:
     - target: {fileID: 3368596149799659969, guid: e00bc265a5bec5d49a8baa96180b7119, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016814358715163128, guid: e00bc265a5bec5d49a8baa96180b7119, type: 3}
+      propertyPath: <musicTest>k__BackingField.Path
+      value: event:/Music/MusicLevel2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016814358715163128, guid: e00bc265a5bec5d49a8baa96180b7119, type: 3}
+      propertyPath: <musicTest>k__BackingField.Guid.Data1
+      value: -785795783
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016814358715163128, guid: e00bc265a5bec5d49a8baa96180b7119, type: 3}
+      propertyPath: <musicTest>k__BackingField.Guid.Data2
+      value: 1211489827
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016814358715163128, guid: e00bc265a5bec5d49a8baa96180b7119, type: 3}
+      propertyPath: <musicTest>k__BackingField.Guid.Data3
+      value: -1842700379
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016814358715163128, guid: e00bc265a5bec5d49a8baa96180b7119, type: 3}
+      propertyPath: <musicTest>k__BackingField.Guid.Data4
+      value: -1373564737
       objectReference: {fileID: 0}
     - target: {fileID: 4030701362840740608, guid: e00bc265a5bec5d49a8baa96180b7119, type: 3}
       propertyPath: m_Name
