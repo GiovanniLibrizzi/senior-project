@@ -31,7 +31,8 @@ public class Jar : MonoBehaviour {
 
     void Start() {
         state = JState.Grounded;
-
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        cCollider.isTrigger = true;
     }
 
     void Update() {

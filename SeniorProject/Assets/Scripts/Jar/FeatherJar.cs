@@ -8,7 +8,7 @@ public class FeatherJar : Jar {
     [SerializeField] float speedIncrease;
     [SerializeField] float jumpIncrease;
     
-    void Start() {
+    void Awake() {
         type = JType.Feather;
         rb = GetComponent<Rigidbody>();
         cCollider = GetComponent<CapsuleCollider>();

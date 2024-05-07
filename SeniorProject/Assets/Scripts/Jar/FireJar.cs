@@ -9,7 +9,7 @@ public class FireJar : Jar {
     public static event Action<int> OnFireJarInteract;
     private PlayerGrab grab = null;
 
-    void Start() {
+    void Awake() {
         type = JType.Fire;
         rb = GetComponent<Rigidbody>();
         cCollider = GetComponent<CapsuleCollider>();

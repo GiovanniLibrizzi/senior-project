@@ -10,7 +10,7 @@ public class SlimeJar : Jar {
     private PlayerGrab grab = null;
 
 
-    void Start() {
+    void Awake() {
         type = JType.Slime;
         rb = GetComponent<Rigidbody>();
         cCollider = GetComponent<CapsuleCollider>();

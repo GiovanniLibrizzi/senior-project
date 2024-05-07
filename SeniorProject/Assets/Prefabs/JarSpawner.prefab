@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2414618522950383459}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  jarPrefab: {fileID: 5565011585276425384, guid: 20ebab5c5b90cc54c8c9e4fc6dbe10b9, type: 3}
+  jarPrefab: {fileID: 5996887836921483447, guid: 8ef620d473b7fc8479e626fc4504c988, type: 3}
   jarGroup: {fileID: 0}
   spawnTime: 8
   jarHeldAmt: 0

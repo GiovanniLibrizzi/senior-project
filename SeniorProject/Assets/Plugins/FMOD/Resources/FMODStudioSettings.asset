@@ -627,6 +627,7 @@ MonoBehaviour:
   - MusicLevel1
   - MusicLevel2
   - SFX
+  - Soundscape
   - Test
   BanksToLoad: []
   LiveUpdatePort: 9264

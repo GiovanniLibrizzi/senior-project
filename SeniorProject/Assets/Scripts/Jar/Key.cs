@@ -5,7 +5,7 @@ using UnityEngine.ProBuilder.Shapes;
 
 public class Key : Jar {
 
-    void Start() {
+    void Awake() {
         type = JType.Key;
         rb = GetComponent<Rigidbody>();
         cCollider = GetComponent<CapsuleCollider>();

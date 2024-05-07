@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -151,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
         // when to jump
         if (playerControls.Main.Jump.triggered && readyToJump && grounded)
         {
+            rb.drag = 0;
             readyToJump = false;
 
             Jump();

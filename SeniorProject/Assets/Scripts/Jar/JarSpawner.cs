@@ -18,7 +18,7 @@ public class JarSpawner : MonoBehaviour {
 
     PlayerGrab playerJars;
     void Start() {
-        //GetComponent<Renderer>().enabled = false;
+        GetComponent<Renderer>().enabled = false;
         playerJars = PlayerGrab.instance;
         if (jarGroup == null) {
             jarGroup = gameObject.transform.parent.gameObject;

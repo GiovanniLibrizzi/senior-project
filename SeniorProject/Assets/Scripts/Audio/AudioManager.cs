@@ -80,6 +80,9 @@ public class AudioManager : MonoBehaviour {
             eventInstances[0].setUserData(GCHandle.ToIntPtr(timelineHandle));
             eventInstances[0].setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         }
+
+        InitializeMusic(FMODEvents.instance.soundscape);
+        
         
     }
 
@@ -238,7 +241,7 @@ public class AudioManager : MonoBehaviour {
 
 
     private void CleanUp() {
-        eventInstances[0].setUserData(IntPtr.Zero);
+        //eventInstances[0].setUserData(IntPtr.Zero);
 
         foreach (EventInstance e in eventInstances) {
             e.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
