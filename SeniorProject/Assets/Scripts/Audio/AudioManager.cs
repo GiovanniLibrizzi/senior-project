@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour {
 
     private EventInstance musicEventInstance;
 
+
     // Enemy state
     public enum DangerState {
         Chill,
@@ -72,7 +73,7 @@ public class AudioManager : MonoBehaviour {
     }
 
     private void Start() {
-        InitializeMusic(FMODEvents.instance.musicTest);
+        musicEventInstance = InitializeMusic(FMODEvents.instance.musicTest);
         if (instance != null) {
             timelineInfo = new TimelineInfo();
             beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
@@ -112,10 +113,11 @@ public class AudioManager : MonoBehaviour {
     }
 
 
-    private void InitializeMusic(EventReference musicEventReference) {
-        musicEventInstance = CreateInstance(musicEventReference);
+    private EventInstance InitializeMusic(EventReference musicEventReference) {
+        EventInstance eventInstance = CreateInstance(musicEventReference);
         //musicEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(playerPos));
-        musicEventInstance.start();
+        eventInstance.start();
+        return eventInstance;
     } 
 
     public void SetMusicJars(int jarsAmt) {
@@ -175,6 +177,11 @@ public class AudioManager : MonoBehaviour {
         switch (param) {
             case AudioTrigger.Parameter.FullLoop: {
                 paramName = "TriggerFullLoop";
+            }
+            break;
+            case AudioTrigger.Parameter.IntroLoop: {
+                paramName = "TriggerFullLoop";
+                value = 0;
             }
             break;
         }
