@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{ace13d4d-1dad-430c-95fc-3f770d865db4}">
+		<property name="name">
+			<value>Sndscape</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{02a25b91-f97b-4f7f-a2a3-dec926d7bb3a}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{503cd8e8-2317-4a60-a335-b2ba7bd719fd}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{31747fdb-34e1-4d07-b806-8299900c6327}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{02a25b91-f97b-4f7f-a2a3-dec926d7bb3a}">
+		<relationship name="effects">
+			<destination>{a7de0c7b-790e-4d1e-9bc1-d9d5c60ac8c1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{503cd8e8-2317-4a60-a335-b2ba7bd719fd}" />
+	<object class="MixerBusFader" id="{a7de0c7b-790e-4d1e-9bc1-d9d5c60ac8c1}" />
+</objects>

@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Other")]
     [SerializeField] GameObject fireTrail;
 
+    private bool jumpTriggered = false;
 
     // Health
     public int maxHp = 5;
@@ -140,17 +141,9 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
-    }
-
-    private void MyInput()
-    {
-        Vector2 inputMove = playerControls.Main.Move.ReadValue<Vector2>();
-        horizontalInput = inputMove.x;
-        verticalInput = inputMove.y;
 
         // when to jump
-        if (playerControls.Main.Jump.triggered && readyToJump && grounded)
-        {
+        if (jumpTriggered) {
             rb.drag = 0;
             readyToJump = false;
 
@@ -160,8 +153,21 @@ public class PlayerMovement : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSfx, this.transform.position);
 
             Invoke(nameof(ResetJump), jumpCooldown);
+            jumpTriggered = false;
         } else {
             animator.SetBool("isJumping", false);
+        }
+    }
+
+    private void MyInput()
+    {
+        Vector2 inputMove = playerControls.Main.Move.ReadValue<Vector2>();
+        horizontalInput = inputMove.x;
+        verticalInput = inputMove.y;
+
+
+        if (playerControls.Main.Jump.triggered && readyToJump && grounded) {
+            jumpTriggered = true;
         }
     }
 

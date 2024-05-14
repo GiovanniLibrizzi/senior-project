@@ -54,6 +54,14 @@ public class AudioManager : MonoBehaviour {
     bool timelineCheck = false;
 
 
+    private Bus busMusic;
+    private Bus busSfx;
+    private Bus busSoundscape;
+    float musicVolume = 1f;
+    float sfxVolume = 1f;
+    float soundscapeVolume = 1f;
+
+
     void Awake() {
         DontDestroyOnLoad(this);
         if (instance != null) {
@@ -66,6 +74,10 @@ public class AudioManager : MonoBehaviour {
         timelineCheck = true;
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
+
+        busMusic = FMODUnity.RuntimeManager.GetBus("bus:/Music");
+        busSfx = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
+        busSoundscape = FMODUnity.RuntimeManager.GetBus("bus:/Sndscape");
 
         //InitializeMusic(FMODEvents.instance.musicTest);
         //DontDestroyOnLoad(GameObject.Find("FMOD_StudioSystem"));
@@ -103,6 +115,10 @@ public class AudioManager : MonoBehaviour {
             //}
             BeatUpdated?.Invoke(timelineInfo.currentBeat);
         }
+
+        busMusic.setVolume(musicVolume);
+        busSfx.setVolume(sfxVolume);
+        busSoundscape.setVolume(soundscapeVolume);
     }
 
 
@@ -245,6 +261,16 @@ public class AudioManager : MonoBehaviour {
         GUILayout.Box($"Current Beat = {timelineInfo.currentBeat}, Last Marker = {(string)timelineInfo.lastMarker}");
     }
 #endif
+
+    public void SetMusicVolume(float vol) {
+        musicVolume = vol;
+    }
+    public void SetSfxVolume(float vol) {
+        sfxVolume = vol;
+    }
+    public void SetSoundscapeVolume(float vol) {
+        soundscapeVolume = vol;
+    }
 
 
     private void CleanUp() {
