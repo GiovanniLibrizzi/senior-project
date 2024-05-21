@@ -5,6 +5,7 @@ using FMODUnity;
 using FMOD.Studio;
 using System;
 using System.Runtime.InteropServices;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AudioManager : MonoBehaviour {
 
@@ -119,6 +120,8 @@ public class AudioManager : MonoBehaviour {
         busMusic.setVolume(musicVolume);
         busSfx.setVolume(sfxVolume);
         busSoundscape.setVolume(soundscapeVolume);
+
+        
     }
 
 
@@ -141,7 +144,10 @@ public class AudioManager : MonoBehaviour {
         //
     }
 
+
     IEnumerator ParameterWaitForBeat(string parameterName, float value) {
+
+        // Set parameter when beat changes
         while (true) {
             if (lastBeat != timelineInfo.currentBeat) {
                 musicEventInstance.setParameterByName(parameterName, (int)value);
@@ -153,7 +159,45 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    
+    public void SetMusicJars(Jar.JType jarType, int jarsAmt) {
+        StartCoroutine(ParameterWaitForBeat(jarType, jarsAmt));
+    }
+
+
+    IEnumerator ParameterWaitForBeat(Jar.JType jarType, float value) {
+
+        // Assign FMOD parameter name
+        string parameterName;
+        switch (jarType) {
+            case Jar.JType.Feather:
+                parameterName = "FeatherJar";
+                break;
+            case Jar.JType.Fire:
+                parameterName = "FireJar";
+                break;
+            case Jar.JType.Slime:
+                parameterName = "SlimeJar";
+                break;
+            case Jar.JType.Key:
+                parameterName = "Key";
+                break;
+            default:
+                parameterName = "FeatherJar";
+                break;
+        }
+
+        // Set parameter when beat changes
+        while (true) {
+            if (lastBeat != timelineInfo.currentBeat) {
+                musicEventInstance.setParameterByName(parameterName, (int)value);
+                Debug.Log("Beat changed, update jar parameter in FMOD");
+                yield break;
+            }
+
+            yield return null;
+        }
+    }
+
 
     public void SetEnemyState(EnemyMovement.EnemyState state, EnemyMovement.EnemyState previousState = EnemyMovement.EnemyState.Hurt) {
         if (state != EnemyMovement.EnemyState.Hurt && previousState != EnemyMovement.EnemyState.Hurt) {
@@ -203,6 +247,14 @@ public class AudioManager : MonoBehaviour {
         }
 
         musicEventInstance.setParameterByName(paramName, value);
+    }
+
+    public void SetSFXReverb(bool active) {
+        int val = 0;
+        if (active) {
+            val = 1;
+        }
+        musicEventInstance.setParameterByName("Reverb", val);
     }
 
 

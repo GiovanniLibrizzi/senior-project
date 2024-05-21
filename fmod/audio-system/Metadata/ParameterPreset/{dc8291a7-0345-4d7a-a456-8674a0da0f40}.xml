@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{dc8291a7-0345-4d7a-a456-8674a0da0f40}">
+		<property name="name">
+			<value>FeatherJars</value>
+		</property>
+		<relationship name="folder">
+			<destination>{cad1fb91-afac-42fa-94ba-ca47379cb996}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{e501ce95-897b-457c-b471-8dc702de4682}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{e501ce95-897b-457c-b471-8dc702de4682}">
+		<property name="maximum">
+			<value>10</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>
