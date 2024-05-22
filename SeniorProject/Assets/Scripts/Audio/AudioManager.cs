@@ -62,6 +62,8 @@ public class AudioManager : MonoBehaviour {
     float sfxVolume = 1f;
     float soundscapeVolume = 1f;
 
+    private EventInstance reverbSnapshot;
+
 
     void Awake() {
         DontDestroyOnLoad(this);
@@ -79,7 +81,7 @@ public class AudioManager : MonoBehaviour {
         busMusic = FMODUnity.RuntimeManager.GetBus("bus:/Music");
         busSfx = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
         busSoundscape = FMODUnity.RuntimeManager.GetBus("bus:/Sndscape");
-
+        
         //InitializeMusic(FMODEvents.instance.musicTest);
         //DontDestroyOnLoad(GameObject.Find("FMOD_StudioSystem"));
 
@@ -96,8 +98,11 @@ public class AudioManager : MonoBehaviour {
         }
 
         InitializeMusic(FMODEvents.instance.soundscape);
-        
-        
+
+        reverbSnapshot = RuntimeManager.CreateInstance("snapshot:/ReverbSnapshot");
+        reverbSnapshot.start();
+
+
     }
 
     private void Update() {
@@ -223,7 +228,6 @@ public class AudioManager : MonoBehaviour {
         Debug.Log("AUDIO: DangerState " + dangerState.ToString());
 
         musicEventInstance.setParameterByName("DangerState", (int)dangerState);
-
     }
 
     public void DeleteEnemyState(EnemyMovement.EnemyState state) {
@@ -237,16 +241,29 @@ public class AudioManager : MonoBehaviour {
         switch (param) {
             case AudioTrigger.Parameter.FullLoop: {
                 paramName = "TriggerFullLoop";
+                musicEventInstance.setParameterByName(paramName, value);
             }
             break;
             case AudioTrigger.Parameter.IntroLoop: {
                 paramName = "TriggerFullLoop";
                 value = 0;
+                musicEventInstance.setParameterByName(paramName, value);
+            }
+            break;
+            case AudioTrigger.Parameter.Reverb: {
+                paramName = "Reverb";
+                reverbSnapshot.setParameterByName(paramName, value);
+            }
+            break;
+            case AudioTrigger.Parameter.NoReverb: {
+                paramName = "Reverb";
+                value = 0;
+                reverbSnapshot.setParameterByName(paramName, value);
             }
             break;
         }
 
-        musicEventInstance.setParameterByName(paramName, value);
+        
     }
 
     public void SetSFXReverb(bool active) {
@@ -256,7 +273,7 @@ public class AudioManager : MonoBehaviour {
         }
         musicEventInstance.setParameterByName("Reverb", val);
     }
-
+    
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos) {
         RuntimeManager.PlayOneShot(sound, worldPos);

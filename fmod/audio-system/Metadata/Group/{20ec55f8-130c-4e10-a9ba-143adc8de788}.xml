@@ -28,9 +28,9 @@
 		<property name="decayTime">
 			<value>2200</value>
 		</property>
-		<relationship name="automators">
-			<destination>{38596e6d-b46e-4adf-b8ee-aee4313a9de6}</destination>
-		</relationship>
+		<property name="wetLevel">
+			<value>-80</value>
+		</property>
 	</object>
 	<object class="ChorusEffect" id="{261c3a8a-ac7b-410f-b50a-c006bcba2e11}">
 		<property name="bypass">
@@ -52,39 +52,6 @@
 		</property>
 		<property name="qualityA">
 			<value>2.10344815</value>
-		</property>
-	</object>
-	<object class="Automator" id="{38596e6d-b46e-4adf-b8ee-aee4313a9de6}">
-		<property name="nameOfPropertyBeingAutomated">
-			<value>wetLevel</value>
-		</property>
-		<relationship name="automationCurves">
-			<destination>{783a94af-9c2e-4178-a625-e043b6b5a425}</destination>
-		</relationship>
-	</object>
-	<object class="AutomationCurve" id="{783a94af-9c2e-4178-a625-e043b6b5a425}">
-		<relationship name="parameter">
-			<destination>{c2e8dbe4-b519-4180-ae69-a5b948d8cc70}</destination>
-		</relationship>
-		<relationship name="automationPoints">
-			<destination>{de1b4ce3-2ad0-433e-95a3-49a4225c1c15}</destination>
-			<destination>{f1073a55-26c4-4562-820a-16add519826a}</destination>
-		</relationship>
-	</object>
-	<object class="AutomationPoint" id="{de1b4ce3-2ad0-433e-95a3-49a4225c1c15}">
-		<property name="position">
-			<value>0</value>
-		</property>
-		<property name="value">
-			<value>-80</value>
-		</property>
-	</object>
-	<object class="AutomationPoint" id="{f1073a55-26c4-4562-820a-16add519826a}">
-		<property name="position">
-			<value>1</value>
-		</property>
-		<property name="value">
-			<value>-6</value>
 		</property>
 	</object>
 </objects>

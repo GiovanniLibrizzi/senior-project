@@ -113,11 +113,11 @@ public class Jar : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (state == JState.Thrown) {
+        if (state == JState.Thrown && collision.gameObject.tag != "Player") {
             //if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             StartCoroutine(ShatterJar());
             OnShatterCollision(collision);
-            
+
             if (!shattered) {
                 switch (type) {
                     case JType.Feather:
