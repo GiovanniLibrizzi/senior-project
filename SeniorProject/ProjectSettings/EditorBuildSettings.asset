@@ -11,13 +11,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1Revamp.unity
     guid: 5bb0d9c847f364446b1d6ada79bcc731
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: 180967541e79d5543802bb0b608c180e
   - enabled: 0
-    path: Assets/Scenes/Level1Test2.unity
+    path: Assets/Scenes/Old/Level1Test2.unity
     guid: cf89f59594fec104a99eea825c6e6f7e
   - enabled: 0
     path: Assets/Scenes/Level2Pro.unity
     guid: f4955deb73e952b43b763d02afc65806
   - enabled: 0
-    path: Assets/Scenes/Level1Pro.unity
+    path: Assets/Scenes/Old/Level1Pro.unity
     guid: e6123b429abee5346bf7cde3895f1c2d
   m_configObjects: {}

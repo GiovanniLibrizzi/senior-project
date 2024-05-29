@@ -104,11 +104,20 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
+    private bool GroundRaycast(Vector3 pos) {
+        return Physics.Raycast(pos, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+    }
     private void Update() {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+        // ground check -- add width to the raycast so it isn't broken
+        float width = 0.1f;
+        Vector3 pos1 = new Vector3(transform.position.x + width, transform.position.y, transform.position.z);
+        Vector3 pos2 = new Vector3(transform.position.x, transform.position.y, transform.position.z - width);
+        Vector3 pos3 = new Vector3(transform.position.x - width, transform.position.y, transform.position.z);
+        Vector3 pos4 = new Vector3(transform.position.x, transform.position.y, transform.position.z - width);
+        grounded = GroundRaycast(transform.position) || GroundRaycast(pos1); //|| GroundRaycast(pos2) || GroundRaycast(pos3) || GroundRaycast(pos4);
 
+
+        // Checks
         MyInput();
         SpeedControl();
         ThrowJar();
@@ -117,15 +126,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded) {
             //Debug.Log("grounded");
             rb.drag = groundDrag;
-            //if (rb.velocity.magnitude> 0) {
-            //    if (Time.time - timeSinceLastFootstep >= 0.5f) {
-            //        //AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
-            //        //audioSource.PlayOneShot(footstepSound);
-            //        AudioManager.instance.PlayOneShot(FMODEvents.instance.stepSfx, this.transform.position);
-            //        //Debug.Log("h");
-            //        timeSinceLastFootstep = Time.time; // Update the time since the last footstep sound
-            //    }
-            //}
+          
         } else {
             //Debug.Log("not grounded");
 
