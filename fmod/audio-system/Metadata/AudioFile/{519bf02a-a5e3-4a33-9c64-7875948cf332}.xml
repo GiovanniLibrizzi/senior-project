@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{519bf02a-a5e3-4a33-9c64-7875948cf332}">
+		<property name="assetPath">
+			<value>Music/Song1/Section1/s1 Rhodes.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>41.142857142857146</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8aee37bc-70e0-48cf-8957-94b8e7884925}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -187,7 +187,7 @@ public class AudioManager : MonoBehaviour {
                 parameterName = "Key";
                 break;
             default:
-                parameterName = "FeatherJar";
+                parameterName = "FeatherJars";
                 break;
         }
 
