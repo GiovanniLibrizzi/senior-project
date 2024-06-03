@@ -33,6 +33,7 @@ public class EnemyMovement : MonoBehaviour {
     [SerializeField] int roamRange = 15;
     [SerializeField] int attackRange = 15;
     [SerializeField] float attackStun = 0.7f;
+    [SerializeField] EnemyFlash enemyFlash;
 
     float attackStunTimer = 0;
 
@@ -46,7 +47,6 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     void Update() {
-
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         //Debug.Log(distanceToPlayer);
         animator.SetBool("isHit", false);
@@ -128,6 +128,8 @@ public class EnemyMovement : MonoBehaviour {
 
     public void TransitionHit() {
         Debug.Log("Enemy hit!!");
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.enemyHitSfx, transform.position);
+        enemyFlash.EnemyHit(true);
         SetState(EnemyState.Hurt);
     }   
 
@@ -146,6 +148,7 @@ public class EnemyMovement : MonoBehaviour {
         yield return new WaitForSeconds(hurtTime);
 
         if (state == EnemyState.Hurt) {
+            enemyFlash.EnemyHit(false);
             SetState(EnemyState.Attacking);
         }
     }

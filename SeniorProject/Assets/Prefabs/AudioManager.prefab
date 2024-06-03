@@ -93,6 +93,41 @@ MonoBehaviour:
       Data3: -1114951
       Data4: -2013092287
     Path: event:/SFX/JarRespawnSFX
+  <fireShatterSfx>k__BackingField:
+    Guid:
+      Data1: 780136584
+      Data2: 1078868278
+      Data3: -450244945
+      Data4: 1489335078
+    Path: event:/SFX/FireShatterSFX
+  <slimeShatterSfx>k__BackingField:
+    Guid:
+      Data1: 212586268
+      Data2: 1241618581
+      Data3: -1756147268
+      Data4: -1770875280
+    Path: event:/SFX/SlimeShatterSFX
+  <keyShatterSfx>k__BackingField:
+    Guid:
+      Data1: 2106515229
+      Data2: 1241283040
+      Data3: 1728039566
+      Data4: 2108133862
+    Path: event:/SFX/KeyShatterSFX
+  <playerHitSfx>k__BackingField:
+    Guid:
+      Data1: 614968167
+      Data2: 1186679828
+      Data3: 1057823635
+      Data4: -2082251536
+    Path: event:/SFX/PlayerHitSFX
+  <enemyHitSfx>k__BackingField:
+    Guid:
+      Data1: 2129480579
+      Data2: 1225499468
+      Data3: -13920106
+      Data4: 1533774239
+    Path: event:/SFX/EnemyHitSFX
   <musicTest>k__BackingField:
     Guid:
       Data1: -785795783

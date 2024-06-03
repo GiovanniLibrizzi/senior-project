@@ -175,7 +175,7 @@ public class AudioManager : MonoBehaviour {
         string parameterName;
         switch (jarType) {
             case Jar.JType.Feather:
-                parameterName = "FeatherJar";
+                parameterName = "FeatherJars";
                 break;
             case Jar.JType.Fire:
                 parameterName = "FireJar";

@@ -95,7 +95,7 @@ public class PlayerGrab : MonoBehaviour {
         }
 
         AudioManager.instance.SetMusicJars(GetJarCount());
-        AudioManager.instance.SetMusicJars(type, GetJarCount());
+        AudioManager.instance.SetMusicJars(type, GetJarCount(type));
         AudioManager.instance.PlayOneShot(FMODEvents.instance.jarPickupSfx, transform.position);
 
         jar.Add();
@@ -117,7 +117,7 @@ public class PlayerGrab : MonoBehaviour {
             }
 
             AudioManager.instance.SetMusicJars(GetJarCount());
-            AudioManager.instance.SetMusicJars(type, GetJarCount());
+            AudioManager.instance.SetMusicJars(type, GetJarCount(type));
 
             if (GetJarCount() == 0) {
                 animator.SetBool("isHolding", false);

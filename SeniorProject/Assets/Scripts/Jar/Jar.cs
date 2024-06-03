@@ -123,6 +123,15 @@ public class Jar : MonoBehaviour {
                     case JType.Feather:
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.featherShatterSfx, transform.position);
                         break;
+                    case JType.Fire:
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.fireShatterSfx, transform.position);
+                        break;
+                    case JType.Slime:
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.slimeShatterSfx, transform.position);
+                        break;
+                    case JType.Key:
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.keyShatterSfx, transform.position);
+                        break;
                     default:
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.shatterSfx, transform.position);
                         break;

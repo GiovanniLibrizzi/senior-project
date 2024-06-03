@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -267,11 +268,14 @@ public class PlayerMovement : MonoBehaviour
         invincibility = true;
         hp -= amt;
         OnPlayerHit?.Invoke(hp);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHitSfx, transform.position);
 
         if (hp <= 0) {
             // Dies
             Debug.Log("YOU DIED");
-            Destroy(gameObject);
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
         }
         yield return new WaitForSeconds(invincibilityTime);
         invincibility = false;
