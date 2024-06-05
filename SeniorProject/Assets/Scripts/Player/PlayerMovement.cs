@@ -102,6 +102,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnDestroy() {
         AudioManager.BeatUpdated -= PlayFootstepSfx;
+        EnemyMovement.OnEnemyHitsPlayer -= TakeDamage;
+        SlimeJar.OnSlimeJarInteract -= StartSlimeStick;
+        FireJar.OnFireJarInteract -= StartFireTrail;
+
     }
 
 
@@ -240,10 +244,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void StartFireTrail(int amt) {
         // add functionality for different amounts
-        if (amt == 1) {
-            fireTrail.SetActive(true);
-        } else if (amt == 0) {
-            fireTrail.SetActive(false);
+        if (fireTrail != null) {
+            if (amt == 1) {
+                fireTrail.SetActive(true);
+            } else if (amt == 0) {
+                fireTrail.SetActive(false);
+            }
         }
     }
 

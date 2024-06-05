@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour {
 
     [SerializeField] private Transform playerPos;
 
-    private EventInstance musicEventInstance;
+    public EventInstance musicEventInstance;
 
 
     // Enemy state
@@ -129,8 +129,27 @@ public class AudioManager : MonoBehaviour {
         
     }
 
+    public void ResetJars() {
+        SetMusicJars(0);
+        SetMusicJars(Jar.JType.Feather, 0);
+        SetMusicJars(Jar.JType.Fire, 0);
+        SetMusicJars(Jar.JType.Slime, 0);
+        SetMusicJars(Jar.JType.Key, 0);
+        //StartCoroutine(ResetCoroutine());
+    }
 
+    private IEnumerator ResetCoroutine() {
+        while (musicEventInstance.isValid()) {
+            yield return null;
+        }
 
+        SetMusicJars(0);
+        SetMusicJars(Jar.JType.Feather, 0);
+        SetMusicJars(Jar.JType.Fire, 0);
+        SetMusicJars(Jar.JType.Slime, 0);
+        SetMusicJars(Jar.JType.Key, 0);
+        
+    }
 
     private void OnDestroy() {
         CleanUp();

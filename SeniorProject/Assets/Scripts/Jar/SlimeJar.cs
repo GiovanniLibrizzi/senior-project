@@ -8,7 +8,7 @@ public class SlimeJar : Jar {
 
     public static event Action<int> OnSlimeJarInteract;
     private PlayerGrab grab = null;
-
+    [SerializeField] GameObject particleBreak;
 
     void Awake() {
         type = JType.Slime;
@@ -51,8 +51,9 @@ public class SlimeJar : Jar {
     }
 
     protected override void OnShatterCollision(Collision collision) {
+        Instantiate(particleBreak, collision.contacts[0].point, Quaternion.identity);
         //if (collision.gameObject.CompareTag("Movable")) {
-           
+
         //}
     }
 }

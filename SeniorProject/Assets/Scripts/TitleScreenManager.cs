@@ -7,6 +7,10 @@ public class TitleScreenManager : MonoBehaviour {
 
     public GameObject optionsLayer;
     private bool optionsActive = false;
+    private void Start() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 
     public void StartGame() {
         SceneManager.LoadScene("Level1Revamp");

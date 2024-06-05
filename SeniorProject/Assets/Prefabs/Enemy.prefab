@@ -263,6 +263,7 @@ MonoBehaviour:
   attackRange: 20
   attackStun: 0.7
   enemyFlash: {fileID: 5740954094357699180}
+  particleHit: {fileID: 1429954232896169633, guid: 83036083a4ebcd34f98131bd3cf6f4d2, type: 3}
 --- !u!1001 &7180418248057566113
 PrefabInstance:
   m_ObjectHideFlags: 0

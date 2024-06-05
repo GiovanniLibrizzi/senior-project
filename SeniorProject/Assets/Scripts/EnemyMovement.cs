@@ -34,6 +34,7 @@ public class EnemyMovement : MonoBehaviour {
     [SerializeField] int attackRange = 15;
     [SerializeField] float attackStun = 0.7f;
     [SerializeField] EnemyFlash enemyFlash;
+    [SerializeField] GameObject particleHit;
 
     float attackStunTimer = 0;
 
@@ -166,6 +167,7 @@ public class EnemyMovement : MonoBehaviour {
         } else {
             if (collision.gameObject.CompareTag("Player")) {
                 if (attackStunTimer <= 0) {
+                    Instantiate(particleHit, collision.contacts[0].point, Quaternion.identity);
                     OnEnemyHitsPlayer?.Invoke(attack);
                     attackStunTimer = attackStun;
                 }

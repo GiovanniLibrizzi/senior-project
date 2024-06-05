@@ -77,8 +77,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecondaryMap:
-        m_Texture: {fileID: 2800000, guid: 926dfa281dcacd54297d31da96e8bdbd, type: 3}
-        m_Scale: {x: 0.01, y: 0.01}
+        m_Texture: {fileID: 2800000, guid: e73defba0f3eb0244b67b8b2ed74e76e, type: 3}
+        m_Scale: {x: 0.02, y: 0.02}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}

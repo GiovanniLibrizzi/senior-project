@@ -7,6 +7,7 @@ public class FeatherJar : Jar {
     
     [SerializeField] float speedIncrease;
     [SerializeField] float jumpIncrease;
+    [SerializeField] GameObject particleBreak;
     
     void Awake() {
         type = JType.Feather;
@@ -42,6 +43,7 @@ public class FeatherJar : Jar {
     //}
 
     protected override void OnShatterCollision(Collision collision) {
+        Instantiate(particleBreak, collision.contacts[0].point, Quaternion.identity);
         switch (collision.gameObject.tag) {
             case "Movable":
                 // opposite direction of the face you hit (guaranteed move direction)

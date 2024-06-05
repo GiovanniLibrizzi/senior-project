@@ -5,6 +5,7 @@ using UnityEngine.ProBuilder.Shapes;
 
 public class Key : Jar {
 
+    [SerializeField] GameObject particleBreak;
     void Awake() {
         type = JType.Key;
         rb = GetComponent<Rigidbody>();
@@ -22,6 +23,7 @@ public class Key : Jar {
     }
 
     protected override void OnShatterCollision(Collision collision) {
+        Instantiate(particleBreak, collision.contacts[0].point, Quaternion.identity);
         switch (collision.gameObject.tag) {
             case "Door":
                 collision.gameObject.GetComponent<Door>().Open();

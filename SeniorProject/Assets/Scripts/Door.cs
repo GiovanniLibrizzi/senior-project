@@ -16,7 +16,7 @@ public class Door : MonoBehaviour {
     
     IEnumerator OpenDoor() {       
         while (true) {
-            transform.Rotate(0, 10f*Time.fixedDeltaTime, 0);
+            transform.Rotate(0, 20f*Time.fixedDeltaTime, 0);
             if (transform.localRotation.eulerAngles.y > initialAngle + 90f) {
                 //Debug.Log("Reached 90, break;");
                 yield break;

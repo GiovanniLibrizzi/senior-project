@@ -210,6 +210,7 @@ MonoBehaviour:
   state: 0
   speedIncrease: 1
   jumpIncrease: 2
+  particleBreak: {fileID: 2353600328335836179, guid: ceec7516237b4104b94300043ca39784, type: 3}
 --- !u!54 &7334996879948189471
 Rigidbody:
   m_ObjectHideFlags: 0
