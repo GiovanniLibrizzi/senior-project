@@ -13,6 +13,7 @@ public class LevelTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player")) {
+            AudioManager.instance.ResetJars();
             SceneManager.LoadScene(sceneName);
         }
     }

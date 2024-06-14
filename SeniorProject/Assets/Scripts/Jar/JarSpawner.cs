@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AudioManager;
+using static UnityEngine.Rendering.DebugUI;
 
 public class JarSpawner : MonoBehaviour {
 
@@ -11,10 +13,11 @@ public class JarSpawner : MonoBehaviour {
     [SerializeField] int jarHeldAmt;
     [SerializeField] float distanceRadius = 10;
     //[SerializeField] GameObject colliderCheck = null;
-
+    Vector3 inGroundPos = Vector3.zero;
     Jar newJar = null;
 
     bool canSpawnJar = true;
+    float groundSink = 0.45f;
 
     PlayerGrab playerJars;
     void Start() {
@@ -40,12 +43,26 @@ public class JarSpawner : MonoBehaviour {
 
     IEnumerator SpawnJar() {
         canSpawnJar = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
-        newJar = Instantiate(jarPrefab, jarGroup.transform).GetComponent<Jar>();
-        newJar.transform.position = transform.position;
 
+        Vector3 inGroundPos = new Vector3(transform.position.x, transform.position.y-groundSink, transform.position.z);
+        newJar = Instantiate(jarPrefab, inGroundPos, Quaternion.identity).GetComponent<Jar>();
+        //newJar.transform.position = transform.position;
+        StartCoroutine(JarEmerge(inGroundPos.y+groundSink));
         yield return new WaitForSeconds(spawnTime);
         canSpawnJar = true;
+    }
+
+    // Slowly move jar up
+    IEnumerator JarEmerge(float yPos) {
+        while (true) {
+            newJar.transform.Translate(new Vector3(0, 0.01f*(Time.deltaTime*60), 0));
+            if (newJar.transform.position.y >= yPos) {
+                yield break;
+            }
+
+            yield return null;
+        }
     }
 }

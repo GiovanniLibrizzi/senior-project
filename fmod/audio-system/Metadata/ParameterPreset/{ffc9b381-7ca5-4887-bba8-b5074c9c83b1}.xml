@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{ffc9b381-7ca5-4887-bba8-b5074c9c83b1}">
+		<property name="name">
+			<value>FireJar</value>
+		</property>
+		<relationship name="folder">
+			<destination>{cad1fb91-afac-42fa-94ba-ca47379cb996}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{2128d7d0-7a72-45a7-8c0f-e3adb53764e2}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{2128d7d0-7a72-45a7-8c0f-e3adb53764e2}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>1</value>
+		</property>
+	</object>
+</objects>

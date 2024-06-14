@@ -17,9 +17,11 @@ public class PlayerGrab : MonoBehaviour {
     public Stack<Jar> jars = new Stack<Jar>();
     public Dictionary<Jar.JType, int> jarDict = new Dictionary<Jar.JType, int>();
 
+    private Animator animator;
 
     private void OnEnable() {
         playerControls.Enable();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void OnDisable() {
@@ -42,7 +44,7 @@ public class PlayerGrab : MonoBehaviour {
     }
 
     void Start() {
-        
+
     }
 
 
@@ -78,6 +80,7 @@ public class PlayerGrab : MonoBehaviour {
         return jars.Count;
     }
     public void AddJar(GameObject obj) {
+
         // list
         Jar jar = obj.GetComponent<Jar>();
         jars.Push(jar);
@@ -92,10 +95,13 @@ public class PlayerGrab : MonoBehaviour {
         }
 
         AudioManager.instance.SetMusicJars(GetJarCount());
+        AudioManager.instance.SetMusicJars(type, GetJarCount(type));
         AudioManager.instance.PlayOneShot(FMODEvents.instance.jarPickupSfx, transform.position);
 
         jar.Add();
-        
+
+        animator.SetBool("isHolding", true);
+
     }
 
     public Jar RemoveJar() {
@@ -111,6 +117,11 @@ public class PlayerGrab : MonoBehaviour {
             }
 
             AudioManager.instance.SetMusicJars(GetJarCount());
+            AudioManager.instance.SetMusicJars(type, GetJarCount(type));
+
+            if (GetJarCount() == 0) {
+                animator.SetBool("isHolding", false);
+            }
 
             return jar;
         }

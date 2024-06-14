@@ -8,8 +8,9 @@ public class FireJar : Jar {
 
     public static event Action<int> OnFireJarInteract;
     private PlayerGrab grab = null;
+    [SerializeField] GameObject particleExplode;
 
-    void Start() {
+    void Awake() {
         type = JType.Fire;
         rb = GetComponent<Rigidbody>();
         cCollider = GetComponent<CapsuleCollider>();
@@ -39,10 +40,17 @@ public class FireJar : Jar {
     }
 
     protected override void OnShatterCollision(Collision collision) {
+        Instantiate(particleExplode, collision.contacts[0].point, Quaternion.identity);
         // Check if colliding w exploding
-        if (collision.gameObject.CompareTag("Explodable")) {
-            Debug.Log("Explode wall");
-            Destroy(collision.gameObject);
+        switch (collision.gameObject.tag) {
+            case "Explodable":
+                Debug.Log("Explode wall");
+                Destroy(collision.gameObject);
+                break;
+            case "Enemy":
+                EnemyMovement enemy = collision.gameObject.GetComponent<EnemyMovement>();
+                enemy.TakeDamage(attack);
+                break;
         }
 
     }

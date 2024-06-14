@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Other")]
     [SerializeField] GameObject fireTrail;
 
+    private bool jumpTriggered = false;
 
     // Health
     public int maxHp = 5;
@@ -58,6 +60,10 @@ public class PlayerMovement : MonoBehaviour
     float timeSinceLastFootstep;
 
 
+    // Animations
+    private Animator animator;
+
+
 
     private void Awake() {
         playerControls = new PlayerControls();
@@ -66,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
         groundDrag = groundDragBase;
         jumpForce = jumpForceBase;
         hp = maxHp;
+        animator = GetComponentInChildren<Animator>();
+        //Debug.Log("Animator : " + animator);
     }
 
     private void OnEnable() {
@@ -78,6 +86,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
+
         playerGrab = GetComponent<PlayerGrab>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -91,14 +102,27 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnDestroy() {
         AudioManager.BeatUpdated -= PlayFootstepSfx;
+        EnemyMovement.OnEnemyHitsPlayer -= TakeDamage;
+        SlimeJar.OnSlimeJarInteract -= StartSlimeStick;
+        FireJar.OnFireJarInteract -= StartFireTrail;
+
     }
 
 
-
+    private bool GroundRaycast(Vector3 pos) {
+        return Physics.Raycast(pos, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+    }
     private void Update() {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        // ground check -- add width to the raycast so it isn't broken
+        float width = 0.1f;
+        Vector3 pos1 = new Vector3(transform.position.x + width, transform.position.y, transform.position.z);
+        Vector3 pos2 = new Vector3(transform.position.x, transform.position.y, transform.position.z - width);
+        Vector3 pos3 = new Vector3(transform.position.x - width, transform.position.y, transform.position.z);
+        Vector3 pos4 = new Vector3(transform.position.x, transform.position.y, transform.position.z - width);
+        grounded = GroundRaycast(transform.position) || GroundRaycast(pos1); //|| GroundRaycast(pos2) || GroundRaycast(pos3) || GroundRaycast(pos4);
 
+
+        // Checks
         MyInput();
         SpeedControl();
         ThrowJar();
@@ -107,15 +131,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded) {
             //Debug.Log("grounded");
             rb.drag = groundDrag;
-            //if (rb.velocity.magnitude> 0) {
-            //    if (Time.time - timeSinceLastFootstep >= 0.5f) {
-            //        //AudioClip footstepSound = footstepSounds[Random.Range(0, footstepSounds.Length)];
-            //        //audioSource.PlayOneShot(footstepSound);
-            //        AudioManager.instance.PlayOneShot(FMODEvents.instance.stepSfx, this.transform.position);
-            //        //Debug.Log("h");
-            //        timeSinceLastFootstep = Time.time; // Update the time since the last footstep sound
-            //    }
-            //}
+          
         } else {
             //Debug.Log("not grounded");
 
@@ -131,6 +147,22 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        // when to jump
+        if (jumpTriggered) {
+            rb.drag = 0;
+            readyToJump = false;
+
+            Jump();
+            animator.SetBool("isJumping", true);
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSfx, this.transform.position);
+
+            Invoke(nameof(ResetJump), jumpCooldown);
+            jumpTriggered = false;
+        } else {
+            animator.SetBool("isJumping", false);
+        }
     }
 
     private void MyInput()
@@ -139,16 +171,9 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = inputMove.x;
         verticalInput = inputMove.y;
 
-        // when to jump
-        if (playerControls.Main.Jump.triggered && readyToJump && grounded)
-        {
-            readyToJump = false;
 
-            Jump();
-
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.jumpSfx, this.transform.position);
-
-            Invoke(nameof(ResetJump), jumpCooldown);
+        if (playerControls.Main.Jump.triggered && readyToJump && grounded) {
+            jumpTriggered = true;
         }
     }
 
@@ -158,13 +183,19 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
+        if (moveDirection.magnitude > 0.01f) {
+            animator.SetBool("isWalking", true);
+        } else {
+            animator.SetBool("isWalking", false);
+        }
         // on ground
-        if(grounded)
+        if (grounded) {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
-        // in air
-        else if(!grounded)
+            
+        } else if (!grounded) {
+            // in air
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
     }
 
     private void SpeedControl()
@@ -213,10 +244,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void StartFireTrail(int amt) {
         // add functionality for different amounts
-        if (amt == 1) {
-            fireTrail.SetActive(true);
-        } else if (amt == 0) {
-            fireTrail.SetActive(false);
+        if (fireTrail != null) {
+            if (amt == 1) {
+                fireTrail.SetActive(true);
+            } else if (amt == 0) {
+                fireTrail.SetActive(false);
+            }
         }
     }
 
@@ -241,11 +274,14 @@ public class PlayerMovement : MonoBehaviour
         invincibility = true;
         hp -= amt;
         OnPlayerHit?.Invoke(hp);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHitSfx, transform.position);
 
         if (hp <= 0) {
             // Dies
             Debug.Log("YOU DIED");
-            Destroy(gameObject);
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
         }
         yield return new WaitForSeconds(invincibilityTime);
         invincibility = false;

@@ -12,6 +12,8 @@ public class EnemyMovement : MonoBehaviour {
         Hurt
     }
 
+    private Animator animator;
+
     // health
     [SerializeField] int maxHp = 2;
     int hp;
@@ -30,6 +32,11 @@ public class EnemyMovement : MonoBehaviour {
     [SerializeField] int attack;
     [SerializeField] int roamRange = 15;
     [SerializeField] int attackRange = 15;
+    [SerializeField] float attackStun = 0.7f;
+    [SerializeField] EnemyFlash enemyFlash;
+    [SerializeField] GameObject particleHit;
+
+    float attackStunTimer = 0;
 
     public static event Action<int> OnEnemyHitsPlayer;
 
@@ -37,15 +44,17 @@ public class EnemyMovement : MonoBehaviour {
         hp = maxHp;
         rb = GetComponent<Rigidbody>();
         SetState(EnemyState.Idle);
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update() {
-
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         //Debug.Log(distanceToPlayer);
-
+        animator.SetBool("isHit", false);
         switch (state) { 
             case EnemyState.Idle:
+
+                animator.SetBool("isWalking", false);
 
                 // Transition
                 if (distanceToPlayer < roamRange) {
@@ -54,7 +63,7 @@ public class EnemyMovement : MonoBehaviour {
                 break;
             case EnemyState.Roam:
                 rb.velocity = transform.forward * mspd;//roamVelocity;
-
+                animator.SetBool("isWalking", true);
                 // Transition
                 if (distanceToPlayer < attackRange) {
                     SetState(EnemyState.Attacking);
@@ -67,8 +76,20 @@ public class EnemyMovement : MonoBehaviour {
                 break;
 
             case EnemyState.Attacking:
+                animator.SetBool("isBiting", false);
                 transform.LookAt(player.transform.position);
-                rb.velocity = transform.forward * mspd * 1.25f;
+                // Restrict from rotating around x and z
+                transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+
+                if (attackStunTimer <= 0) {
+                    rb.velocity = transform.forward * mspd * 1.25f;
+                    animator.SetBool("isWalking", true);
+                } else {
+                    if (rb.velocity != Vector3.zero) {
+                        rb.velocity = Vector3.zero;
+                        animator.SetBool("isBiting", true);
+                    }
+                }
 
                 // Transition
                 if (distanceToPlayer > roamRange) {
@@ -77,6 +98,8 @@ public class EnemyMovement : MonoBehaviour {
                 break;
 
             case EnemyState.Hurt:
+
+                animator.SetBool("isHit", true);
                 StartCoroutine(HurtCooldown());
 
                 //if (hurtHitWall) {
@@ -86,6 +109,10 @@ public class EnemyMovement : MonoBehaviour {
                 break;
         }
     
+        
+        if (attackStunTimer > 0) {
+            attackStunTimer -= Time.deltaTime;
+        } 
     }
 
     private void SetState(EnemyState state) {
@@ -102,6 +129,8 @@ public class EnemyMovement : MonoBehaviour {
 
     public void TransitionHit() {
         Debug.Log("Enemy hit!!");
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.enemyHitSfx, transform.position);
+        enemyFlash.EnemyHit(true);
         SetState(EnemyState.Hurt);
     }   
 
@@ -120,6 +149,7 @@ public class EnemyMovement : MonoBehaviour {
         yield return new WaitForSeconds(hurtTime);
 
         if (state == EnemyState.Hurt) {
+            enemyFlash.EnemyHit(false);
             SetState(EnemyState.Attacking);
         }
     }
@@ -136,7 +166,11 @@ public class EnemyMovement : MonoBehaviour {
             //}
         } else {
             if (collision.gameObject.CompareTag("Player")) {
-                OnEnemyHitsPlayer?.Invoke(attack);
+                if (attackStunTimer <= 0) {
+                    Instantiate(particleHit, collision.contacts[0].point, Quaternion.identity);
+                    OnEnemyHitsPlayer?.Invoke(attack);
+                    attackStunTimer = attackStun;
+                }
             }
         }
     }
@@ -146,9 +180,15 @@ public class EnemyMovement : MonoBehaviour {
         TransitionHit();
         Debug.Log("Enemy damage! Health: " + hp);
         if (hp <= 0) {
-            DestroyAudioState();
-            Destroy(gameObject);
+            animator.SetBool("isDead", true);
+            StartCoroutine(DeathTimer());
         }
+    }
+
+    IEnumerator DeathTimer() {
+        yield return new WaitForSeconds(0.5f);
+        DestroyAudioState();
+        Destroy(gameObject);
     }
 
 

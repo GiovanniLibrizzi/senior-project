@@ -7,8 +7,9 @@ public class FeatherJar : Jar {
     
     [SerializeField] float speedIncrease;
     [SerializeField] float jumpIncrease;
+    [SerializeField] GameObject particleBreak;
     
-    void Start() {
+    void Awake() {
         type = JType.Feather;
         rb = GetComponent<Rigidbody>();
         cCollider = GetComponent<CapsuleCollider>();
@@ -42,9 +43,11 @@ public class FeatherJar : Jar {
     //}
 
     protected override void OnShatterCollision(Collision collision) {
+        Instantiate(particleBreak, collision.contacts[0].point, Quaternion.identity);
         switch (collision.gameObject.tag) {
             case "Movable":
-                ApplyKnockback(collision);
+                // opposite direction of the face you hit (guaranteed move direction)
+                ApplyKnockback(collision, -collision.contacts[0].normal);
                 break;
             case "Enemy":
                 ApplyKnockback(collision);
@@ -65,5 +68,10 @@ public class FeatherJar : Jar {
     private void ApplyKnockback(Collision collision) {
         Rigidbody rbOther = collision.gameObject.GetComponent<Rigidbody>();
         rbOther.velocity = initialVelocity.normalized * 16f; //1.1f; 
+    }
+
+    private void ApplyKnockback(Collision collision, Vector3 velocity) {
+        Rigidbody rbOther = collision.gameObject.GetComponent<Rigidbody>();
+        rbOther.velocity = velocity * 16f; //1.1f; 
     }
 }

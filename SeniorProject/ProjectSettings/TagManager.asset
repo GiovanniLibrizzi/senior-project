@@ -9,6 +9,7 @@ TagManager:
   - Jar
   - Enemy
   - Ladder
+  - Door
   layers:
   - Default
   - TransparentFX

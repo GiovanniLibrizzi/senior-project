@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEditor.FilePathAttribute;
 
 public class Jar : MonoBehaviour {
     public enum JType {
         Feather,
         Fire, 
-        Slime
+        Slime,
+        Key
     }
 
     public enum JState {
@@ -33,7 +31,8 @@ public class Jar : MonoBehaviour {
 
     void Start() {
         state = JState.Grounded;
-
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        cCollider.isTrigger = true;
     }
 
     void Update() {
@@ -114,15 +113,24 @@ public class Jar : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (state == JState.Thrown) {
+        if (state == JState.Thrown && collision.gameObject.tag != "Player") {
             //if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) {
             StartCoroutine(ShatterJar());
             OnShatterCollision(collision);
-            
+
             if (!shattered) {
                 switch (type) {
                     case JType.Feather:
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.featherShatterSfx, transform.position);
+                        break;
+                    case JType.Fire:
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.fireShatterSfx, transform.position);
+                        break;
+                    case JType.Slime:
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.slimeShatterSfx, transform.position);
+                        break;
+                    case JType.Key:
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.keyShatterSfx, transform.position);
                         break;
                     default:
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.shatterSfx, transform.position);

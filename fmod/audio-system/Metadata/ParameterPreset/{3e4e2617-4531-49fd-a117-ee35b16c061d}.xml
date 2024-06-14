@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{3e4e2617-4531-49fd-a117-ee35b16c061d}">
+		<property name="name">
+			<value>SlimeJar</value>
+		</property>
+		<relationship name="folder">
+			<destination>{cad1fb91-afac-42fa-94ba-ca47379cb996}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{6d59a0ef-c2e3-4594-84ca-7f1efd059cf3}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{6d59a0ef-c2e3-4594-84ca-7f1efd059cf3}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>1</value>
+		</property>
+	</object>
+</objects>

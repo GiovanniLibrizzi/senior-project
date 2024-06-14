@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1105 &110500000
+HumanTemplate:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BurrowAvatarTest
+  m_BoneTemplate:
+    Head: RigHead
+    Hips: RigPelvis
+    LeftFoot: RigLLegAnkle
+    LeftHand: RigLArmFinger3
+    LeftLowerArm: RigLArmFinger2
+    LeftLowerLeg: RigLLeg2
+    LeftShoulder: RigLArm2
+    LeftToes: RigLLegFoot1
+    LeftUpperArm: RigLArmFinger1
+    LeftUpperLeg: RigLLeg1
+    RightFoot: RigRLegAnkle
+    RightHand: RigRArmFinger1
+    RightLowerArm: RigRArmPalm
+    RightLowerLeg: RigRLeg2
+    RightShoulder: RigRArm1
+    RightToes: RigRLegFoot1
+    RightUpperArm: RigRArm2
+    RightUpperLeg: RigRLeg1
+    Spine: RigSpine1

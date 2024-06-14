@@ -52,6 +52,10 @@
 			<destination>{7aca3f39-dbfc-45cb-8b71-ade691c66d2e}</destination>
 			<destination>{3a671399-93f4-4b41-bc9a-b41e0baea755}</destination>
 			<destination>{211db9bb-9cf2-4815-8418-ec4db573d451}</destination>
+			<destination>{7756aa0d-1b83-4ef6-abfd-c87a2fed6ce1}</destination>
+			<destination>{724a8311-fae1-44a5-b6b7-9c3eca31e9b6}</destination>
+			<destination>{61d285c5-9b61-4574-a96e-d9ecfbfe3549}</destination>
+			<destination>{53219cdd-bdfa-4373-a238-f871cbd30d3d}</destination>
 		</relationship>
 		<relationship name="banks">
 			<destination>{1d996520-7ef7-477f-b957-a4ae5dea444d}</destination>
@@ -75,7 +79,7 @@
 			<destination>{7e6a3c5c-00d7-4440-a6ff-0a93e372e4b5}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{31747fdb-34e1-4d07-b806-8299900c6327}</destination>
+			<destination>{2bd0e5ad-d398-4c5f-a28f-2abf7a318c75}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{9a18d68d-ec35-4069-b8a2-88ed631a48b5}" />
@@ -291,6 +295,7 @@
 			<destination>{6ba88e8c-98cc-458b-b969-d42f899dc2a0}</destination>
 			<destination>{a450e286-62d6-43e5-8f8b-a8652067e96d}</destination>
 			<destination>{b87f3eda-ffbe-4b0a-b67a-a6e949262533}</destination>
+			<destination>{eb39c14e-2f42-4da7-b56e-1adc9728451d}</destination>
 		</relationship>
 	</object>
 	<object class="ParameterProxy" id="{7aca3f39-dbfc-45cb-8b71-ade691c66d2e}">
@@ -306,6 +311,26 @@
 	<object class="ParameterProxy" id="{211db9bb-9cf2-4815-8418-ec4db573d451}">
 		<relationship name="preset">
 			<destination>{2098cfa3-3a3a-4dc6-b8c3-26dc37092f33}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProxy" id="{7756aa0d-1b83-4ef6-abfd-c87a2fed6ce1}">
+		<relationship name="preset">
+			<destination>{e501ce95-897b-457c-b471-8dc702de4682}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProxy" id="{724a8311-fae1-44a5-b6b7-9c3eca31e9b6}">
+		<relationship name="preset">
+			<destination>{2128d7d0-7a72-45a7-8c0f-e3adb53764e2}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProxy" id="{61d285c5-9b61-4574-a96e-d9ecfbfe3549}">
+		<relationship name="preset">
+			<destination>{6d59a0ef-c2e3-4594-84ca-7f1efd059cf3}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProxy" id="{53219cdd-bdfa-4373-a238-f871cbd30d3d}">
+		<relationship name="preset">
+			<destination>{390a3278-1bac-48c4-8513-89b6471b8d4a}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{1b875031-4071-4be8-b1ea-f6ec14cdd040}">
@@ -1139,6 +1164,26 @@
 			<destination>{bca27b61-871d-4c0a-b653-e2b674aeb69c}</destination>
 		</relationship>
 	</object>
+	<object class="TransitionRegion" id="{eb39c14e-2f42-4da7-b56e-1adc9728451d}">
+		<property name="position">
+			<value>30</value>
+		</property>
+		<property name="length">
+			<value>0.026041666666666075</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{897795b1-3d83-4204-a05f-2d5a03a8c01c}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{e653fbbb-4863-41f2-b872-7c910e32306b}</destination>
+		</relationship>
+		<relationship name="destination">
+			<destination>{b87f3eda-ffbe-4b0a-b67a-a6e949262533}</destination>
+		</relationship>
+		<relationship name="triggerConditions">
+			<destination>{44805cfb-fbb5-4204-8cf8-412893da93da}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{984d3fa7-d5d0-442d-a546-a585b9ebbdd0}">
 		<relationship name="effects">
 			<destination>{13ec99bd-fc9a-4bd2-9d37-c16c67346441}</destination>
@@ -1341,6 +1386,17 @@
 		</property>
 		<property name="maximum">
 			<value>1</value>
+		</property>
+		<relationship name="parameter">
+			<destination>{2098cfa3-3a3a-4dc6-b8c3-26dc37092f33}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterCondition" id="{44805cfb-fbb5-4204-8cf8-412893da93da}">
+		<property name="minimum">
+			<value>0</value>
+		</property>
+		<property name="maximum">
+			<value>0</value>
 		</property>
 		<relationship name="parameter">
 			<destination>{2098cfa3-3a3a-4dc6-b8c3-26dc37092f33}</destination>

@@ -5,6 +5,7 @@ using FMODUnity;
 using FMOD.Studio;
 using System;
 using System.Runtime.InteropServices;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AudioManager : MonoBehaviour {
 
@@ -13,7 +14,8 @@ public class AudioManager : MonoBehaviour {
 
     [SerializeField] private Transform playerPos;
 
-    private EventInstance musicEventInstance;
+    public EventInstance musicEventInstance;
+
 
     // Enemy state
     public enum DangerState {
@@ -53,6 +55,16 @@ public class AudioManager : MonoBehaviour {
     bool timelineCheck = false;
 
 
+    private Bus busMusic;
+    private Bus busSfx;
+    private Bus busSoundscape;
+    float musicVolume = 1f;
+    float sfxVolume = 1f;
+    float soundscapeVolume = 1f;
+
+    private EventInstance reverbSnapshot;
+
+
     void Awake() {
         DontDestroyOnLoad(this);
         if (instance != null) {
@@ -66,12 +78,17 @@ public class AudioManager : MonoBehaviour {
         eventInstances = new List<EventInstance>();
         eventEmitters = new List<StudioEventEmitter>();
 
-        InitializeMusic(FMODEvents.instance.musicTest);
+        busMusic = FMODUnity.RuntimeManager.GetBus("bus:/Music");
+        busSfx = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
+        busSoundscape = FMODUnity.RuntimeManager.GetBus("bus:/Sndscape");
+        
+        //InitializeMusic(FMODEvents.instance.musicTest);
         //DontDestroyOnLoad(GameObject.Find("FMOD_StudioSystem"));
 
     }
 
     private void Start() {
+        musicEventInstance = InitializeMusic(FMODEvents.instance.musicTest);
         if (instance != null) {
             timelineInfo = new TimelineInfo();
             beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
@@ -79,6 +96,13 @@ public class AudioManager : MonoBehaviour {
             eventInstances[0].setUserData(GCHandle.ToIntPtr(timelineHandle));
             eventInstances[0].setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER);
         }
+
+        InitializeMusic(FMODEvents.instance.soundscape);
+
+        reverbSnapshot = RuntimeManager.CreateInstance("snapshot:/ReverbSnapshot");
+        reverbSnapshot.start();
+
+
     }
 
     private void Update() {
@@ -97,20 +121,46 @@ public class AudioManager : MonoBehaviour {
             //}
             BeatUpdated?.Invoke(timelineInfo.currentBeat);
         }
+
+        busMusic.setVolume(musicVolume);
+        busSfx.setVolume(sfxVolume);
+        busSoundscape.setVolume(soundscapeVolume);
+
+        
     }
 
+    public void ResetJars() {
+        SetMusicJars(0);
+        SetMusicJars(Jar.JType.Feather, 0);
+        SetMusicJars(Jar.JType.Fire, 0);
+        SetMusicJars(Jar.JType.Slime, 0);
+        SetMusicJars(Jar.JType.Key, 0);
+        //StartCoroutine(ResetCoroutine());
+    }
 
+    private IEnumerator ResetCoroutine() {
+        while (musicEventInstance.isValid()) {
+            yield return null;
+        }
 
+        SetMusicJars(0);
+        SetMusicJars(Jar.JType.Feather, 0);
+        SetMusicJars(Jar.JType.Fire, 0);
+        SetMusicJars(Jar.JType.Slime, 0);
+        SetMusicJars(Jar.JType.Key, 0);
+        
+    }
 
     private void OnDestroy() {
         CleanUp();
     }
 
 
-    private void InitializeMusic(EventReference musicEventReference) {
-        musicEventInstance = CreateInstance(musicEventReference);
+    private EventInstance InitializeMusic(EventReference musicEventReference) {
+        EventInstance eventInstance = CreateInstance(musicEventReference);
         //musicEventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(playerPos));
-        musicEventInstance.start();
+        eventInstance.start();
+        return eventInstance;
     } 
 
     public void SetMusicJars(int jarsAmt) {
@@ -118,7 +168,10 @@ public class AudioManager : MonoBehaviour {
         //
     }
 
+
     IEnumerator ParameterWaitForBeat(string parameterName, float value) {
+
+        // Set parameter when beat changes
         while (true) {
             if (lastBeat != timelineInfo.currentBeat) {
                 musicEventInstance.setParameterByName(parameterName, (int)value);
@@ -130,7 +183,45 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    
+    public void SetMusicJars(Jar.JType jarType, int jarsAmt) {
+        StartCoroutine(ParameterWaitForBeat(jarType, jarsAmt));
+    }
+
+
+    IEnumerator ParameterWaitForBeat(Jar.JType jarType, float value) {
+
+        // Assign FMOD parameter name
+        string parameterName;
+        switch (jarType) {
+            case Jar.JType.Feather:
+                parameterName = "FeatherJars";
+                break;
+            case Jar.JType.Fire:
+                parameterName = "FireJar";
+                break;
+            case Jar.JType.Slime:
+                parameterName = "SlimeJar";
+                break;
+            case Jar.JType.Key:
+                parameterName = "Key";
+                break;
+            default:
+                parameterName = "FeatherJars";
+                break;
+        }
+
+        // Set parameter when beat changes
+        while (true) {
+            if (lastBeat != timelineInfo.currentBeat) {
+                musicEventInstance.setParameterByName(parameterName, (int)value);
+                Debug.Log("Beat changed, update jar parameter in FMOD");
+                yield break;
+            }
+
+            yield return null;
+        }
+    }
+
 
     public void SetEnemyState(EnemyMovement.EnemyState state, EnemyMovement.EnemyState previousState = EnemyMovement.EnemyState.Hurt) {
         if (state != EnemyMovement.EnemyState.Hurt && previousState != EnemyMovement.EnemyState.Hurt) {
@@ -156,7 +247,6 @@ public class AudioManager : MonoBehaviour {
         Debug.Log("AUDIO: DangerState " + dangerState.ToString());
 
         musicEventInstance.setParameterByName("DangerState", (int)dangerState);
-
     }
 
     public void DeleteEnemyState(EnemyMovement.EnemyState state) {
@@ -170,13 +260,39 @@ public class AudioManager : MonoBehaviour {
         switch (param) {
             case AudioTrigger.Parameter.FullLoop: {
                 paramName = "TriggerFullLoop";
+                musicEventInstance.setParameterByName(paramName, value);
+            }
+            break;
+            case AudioTrigger.Parameter.IntroLoop: {
+                paramName = "TriggerFullLoop";
+                value = 0;
+                musicEventInstance.setParameterByName(paramName, value);
+            }
+            break;
+            case AudioTrigger.Parameter.Reverb: {
+                paramName = "Reverb";
+                reverbSnapshot.setParameterByName(paramName, value);
+            }
+            break;
+            case AudioTrigger.Parameter.NoReverb: {
+                paramName = "Reverb";
+                value = 0;
+                reverbSnapshot.setParameterByName(paramName, value);
             }
             break;
         }
 
-        musicEventInstance.setParameterByName(paramName, value);
+        
     }
 
+    public void SetSFXReverb(bool active) {
+        int val = 0;
+        if (active) {
+            val = 1;
+        }
+        musicEventInstance.setParameterByName("Reverb", val);
+    }
+    
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos) {
         RuntimeManager.PlayOneShot(sound, worldPos);
@@ -234,9 +350,19 @@ public class AudioManager : MonoBehaviour {
     }
 #endif
 
+    public void SetMusicVolume(float vol) {
+        musicVolume = vol;
+    }
+    public void SetSfxVolume(float vol) {
+        sfxVolume = vol;
+    }
+    public void SetSoundscapeVolume(float vol) {
+        soundscapeVolume = vol;
+    }
+
 
     private void CleanUp() {
-        eventInstances[0].setUserData(IntPtr.Zero);
+        //eventInstances[0].setUserData(IntPtr.Zero);
 
         foreach (EventInstance e in eventInstances) {
             e.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
